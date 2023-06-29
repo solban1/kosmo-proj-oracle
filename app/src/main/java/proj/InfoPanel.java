@@ -38,7 +38,7 @@ public class InfoPanel extends JPanel{
             ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         add(dNameBox,BorderLayout.NORTH);
-        add(infoScroll).isMinimumSizeSet();
+        add(infoScroll);
     }
 }
 //executeSelect, getColumnData, getData 
