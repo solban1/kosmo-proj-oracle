@@ -46,6 +46,7 @@ public class LogUI extends JFrame {
         pwdField = new JPasswordField(23);
         lookpwdBox = new JCheckBox("press the check box");
         lookpwdBox.setBorder(new EmptyBorder(30,0,30,0));
+        lookpwdBox.setBackground(Color.WHITE);
         centerPanel = new JPanel();
         centerPanel.setBackground(Color.WHITE);
         centerPanel.setBorder(new EmptyBorder(60,0,60,0)); //패널 위 아래 공백
