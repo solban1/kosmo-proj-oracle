@@ -6,6 +6,7 @@ import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -70,6 +71,9 @@ public static void main(String[] args){
     }
     @Override
 	public void actionPerformed(ActionEvent e){
+        ImageIcon icon1 = new ImageIcon("res/out.png");
+        ImageIcon icon2 = new ImageIcon("res/go.png");
+        
         UIManager.put("OptionPane.background", new Color(177, 224, 227)); //UIOPTION 색상
        // UIManager.put("Panel.background", new Color(53, 20, 219)); 
         UIManager.put("Button.background", new Color(194, 177, 227));
@@ -78,11 +82,11 @@ public static void main(String[] args){
 		JOptionPane jp = new JOptionPane();
         if(b == h1.bN1 ){
             System.out.println("출근버튼 클릭");
-            JOptionPane.showConfirmDialog(null,"출근하시겠습니까?","출근",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null);
+            JOptionPane.showConfirmDialog(null,"출근하시겠습니까?","출근",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,icon1);
       
         }else if(b== h1.bN2){
             System.out.println("퇴근버튼 클릭");
-            JOptionPane.showConfirmDialog(null,"퇴근하시겠습니까?","퇴근",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null);     
+            JOptionPane.showConfirmDialog(null,"퇴근하시겠습니까?","퇴근",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,icon2);     
         }  	
     }
 }
