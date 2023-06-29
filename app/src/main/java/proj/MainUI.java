@@ -2,6 +2,7 @@ package proj;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -18,6 +19,7 @@ public class MainUI extends JFrame {
     private JLabel titleLbl;
     private HashMap<String, JButton> bottomBtns;
     private ActionListener attendListener, menuListener, homeListener, infoListener, logoutListener;
+    private Component currentPanel;
 
     public MainUI() {
         initListeners();
@@ -65,20 +67,27 @@ public class MainUI extends JFrame {
         setUI();
     }
 
+    @Override
+    public Component add(Component comp) {
+        addImpl(comp, null, -1);
+        currentPanel = comp;
+        return comp;
+    }
+
     private void initListeners() {
         attendListener = e -> {
-            remove(dummyPanel);
-            add(dummyPanel2);
-            validate();
+            
         };
         menuListener = e -> {
             
         };
         homeListener = e -> {
+            remove(currentPanel);
             add(new Homepage());
             validate();
         };
         infoListener = e -> {
+            remove(currentPanel);
             add(new InfoPanel());
             validate();
         };
