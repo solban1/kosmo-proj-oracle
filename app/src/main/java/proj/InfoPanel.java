@@ -3,6 +3,7 @@ package proj;
 import java.awt.Color;
 import java.util.Vector;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,9 +20,8 @@ public class InfoPanel extends JPanel{
     Vector<Vector<String>> rowData; //해당 데이터의 내용을 출력 (ex: 이름 전화번호, 이메일)
     InfoPanel(){
 
-    }
-    void result(){
         DBHandler dh = new DBHandler();
+        dh.executeSelect();
         dNames = dh.getColumnData();
         rowData = dh.getData();
 
@@ -30,14 +30,12 @@ public class InfoPanel extends JPanel{
         dNameBox.setForeground(Color.WHITE);
         infoTable = new JTable(rowData,dNames);
         infoScroll = new JScrollPane(infoTable);
+        JButton j = new JButton("click"); //가짜
 
         infoJ = new JPanel();
         infoJ.setBorder(new EmptyBorder(15, 5, 15, 5));
         infoJ.add(infoScroll);
-    }
-    public static void main(String[] args){
-        InfoPanel ip = new InfoPanel();
-        ip.result();
+        infoJ.add(j);
     }
 }
 //executeSelect, getColumnData, getData 
