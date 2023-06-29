@@ -3,17 +3,9 @@
  */
 package proj;
 
-import java.awt.Container;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class App extends JFrame {
-    Container cp;
-    JPanel p1, p2, p3, p4;
-    JButton b1;
-    
     public static void main(String[] args) {
         LogUI lu = new LogUI();
         lu.init();
