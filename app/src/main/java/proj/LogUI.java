@@ -19,11 +19,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class LogUI extends JFrame {
     Container cp;
     JPanel upPanel, downPanel, centerPanel;
-    JTextField idText;
+    JTextField idField;
     JPasswordField pwdField;
     JLabel northL1, laImg1;
     ImageIcon image;
@@ -39,24 +40,28 @@ public class LogUI extends JFrame {
         northL1.setForeground(Color.WHITE);
         upPanel.setBackground(Color.DARK_GRAY); //JPanel 색상
         upPanel.add(northL1);
-        
+
+        idField = new JTextField(23);
+        pwdField = new JPasswordField(23);
+        lookpwdBox = new JCheckBox("press the check box");
+        lookpwdBox.setBorder(new EmptyBorder(30,0,30,0));
+        centerPanel = new JPanel();
+        centerPanel.setBackground(Color.GRAY);
+        centerPanel.setBorder(new EmptyBorder(60,0,60,0)); //패널 위 아래 공백
+        image = new ImageIcon("res/logo1.jpg"); //아이콘 삽입
+        laImg1 = new JLabel(image);
+        laImg1.setBorder(new EmptyBorder(0, 0, 30, 0));    
+        centerPanel.add(laImg1);
+        centerPanel.add(idField);
+        centerPanel.add(pwdField);
+        centerPanel.add(lookpwdBox);
+
         downPanel = new JPanel();
         downPanel.setLayout(new GridLayout(1,2));
         logInButton = new JButton("로그인");
         logOutButton = new JButton("회원가입");
-        //image = new ImageIcon(); //아이콘 삽입
-        //laImg1 = new JLabel(image);
-        //downPanel.add(laImg1);
         downPanel.add(logInButton);
         downPanel.add(logOutButton);
-
-        idText = new JTextField(21);
-        pwdField = new JPasswordField(21);
-        lookpwdBox = new JCheckBox("look pwd");
-        centerPanel = new JPanel();
-        centerPanel.add(idText);
-        centerPanel.add(pwdField);
-        centerPanel.add(lookpwdBox);
 
         cp = getContentPane();
         cp.add(upPanel, BorderLayout.NORTH);
@@ -67,7 +72,7 @@ public class LogUI extends JFrame {
     }
     void setUI(){
         setTitle("LogIn");
-        setSize(350, 550);
+        setSize(Prop.WIN_WIDTH, Prop.WIN_HEIGHT);
         setVisible(true);
         setLocationRelativeTo(null);
 
@@ -79,7 +84,6 @@ public class LogUI extends JFrame {
         lu.init();
         lu.setUI();
     }
-
 }
 
 class lookpwdHandler implements ActionListener{ //check되었을때 비밀번호 * 표시
