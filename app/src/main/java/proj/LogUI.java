@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 
 public class LogUI extends JFrame {
     Container cp;
@@ -28,17 +29,17 @@ public class LogUI extends JFrame {
     JPasswordField pwdField;
     JLabel northL1, laImg1;
     ImageIcon image;
-    JButton logInButton, logOutButton;
+    JButton logInButton, joinButton;
     JCheckBox lookpwdBox;
     LogUI(){
         
     }
     void init(){
         upPanel = new JPanel();
-        northL1 = new JLabel("로그인 화면");
+        northL1 = new JLabel("Welcome");
         northL1.setFont(new Font("맑은고딕", Font.BOLD, 18)); //글씨체 변경 맑은고딕,굵게, 18
         northL1.setForeground(Color.WHITE);
-        upPanel.setBackground(Color.DARK_GRAY); //JPanel 색상
+        upPanel.setBackground(new Color(Prop.COLOR_MAIN)); //JPanel 색상
         upPanel.add(northL1);
 
         idField = new JTextField(23);
@@ -46,9 +47,9 @@ public class LogUI extends JFrame {
         lookpwdBox = new JCheckBox("press the check box");
         lookpwdBox.setBorder(new EmptyBorder(30,0,30,0));
         centerPanel = new JPanel();
-        centerPanel.setBackground(Color.GRAY);
+        centerPanel.setBackground(Color.WHITE);
         centerPanel.setBorder(new EmptyBorder(60,0,60,0)); //패널 위 아래 공백
-        image = new ImageIcon("res/logo1.jpg"); //아이콘 삽입
+        image = new ImageIcon("res/logo1.png"); //아이콘 삽입
         laImg1 = new JLabel(image);
         laImg1.setBorder(new EmptyBorder(0, 0, 30, 0));    
         centerPanel.add(laImg1);
@@ -58,10 +59,21 @@ public class LogUI extends JFrame {
 
         downPanel = new JPanel();
         downPanel.setLayout(new GridLayout(1,2));
-        logInButton = new JButton("로그인");
-        logOutButton = new JButton("회원가입");
+        downPanel.setBorder(new EmptyBorder(5, 30, 5, 30));
+        logInButton = new JButton("LogIn"); //로그인
+        joinButton = new JButton("join"); //회원가입
+        logInButton.setOpaque(true);
+        joinButton.setOpaque(true);
+        logInButton.setBackground(new Color(Prop.COLOR_MAIN));
+        joinButton.setBackground(new Color(Prop.COLOR_MAIN));
+        logInButton.setBorder(new EtchedBorder(30));
+        joinButton.setBorder(new EtchedBorder(30));
+        logInButton.setFont(new Font("null",Font.PLAIN,15));
+        joinButton.setFont(new Font("null",Font.PLAIN,15));
+        logInButton.setForeground(Color.WHITE);
+        joinButton.setForeground(Color.WHITE);
         downPanel.add(logInButton);
-        downPanel.add(logOutButton);
+        downPanel.add(joinButton);
 
         cp = getContentPane();
         cp.add(upPanel, BorderLayout.NORTH);
