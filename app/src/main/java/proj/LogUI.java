@@ -1,51 +1,69 @@
-//Kjoonyoung 변경 0628 6:32
-//Kjoonyoung 변경 0628 6:32
+//Kjoonyoung 변경 0629 12:57
 
-// 수정 -> pull -> commit -> push     (ctrl + shift + p)
+// 수정 -> pull -> commit -> push _ctrl + shift + p
 package proj;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.SystemColor;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 public class LogUI extends JFrame {
     Container cp;
-    JPanel p1, p2;
-    JTextArea idT, pwdT;
-    JLabel northL;
-    JButton b1, b2;
+    JPanel upPanel, downPanel, centerPanel;
+    JTextField idText;
+    JPasswordField pwdField;
+    JLabel northL1, laImg1;
+    ImageIcon image;
+    JButton logInButton, logOutButton;
+    JCheckBox lookpwdBox;
     LogUI(){
         
     }
     void init(){
-        b1 = new JButton("로그인");
-        b2 = new JButton("회원가입");
+        upPanel = new JPanel();
+        northL1 = new JLabel("로그인 화면");
+        northL1.setFont(new Font("맑은고딕", Font.BOLD, 18)); //글씨체 변경 맑은고딕,굵게, 18
+        northL1.setForeground(Color.WHITE);
+        upPanel.setBackground(Color.DARK_GRAY); //JPanel 색상
+        upPanel.add(northL1);
+        
+        downPanel = new JPanel();
+        downPanel.setLayout(new GridLayout(1,2));
+        logInButton = new JButton("로그인");
+        logOutButton = new JButton("회원가입");
+        //image = new ImageIcon(); //아이콘 삽입
+        //laImg1 = new JLabel(image);
+        //downPanel.add(laImg1);
+        downPanel.add(logInButton);
+        downPanel.add(logOutButton);
 
-        northL = new JLabel("로그인 화면");
-        northL.setFont(new Font("맑은고딕", Font.BOLD, 18)); //글씨체 변경 맑은고딕,굵게, 18
-        northL.setForeground(Color.WHITE);
-        p1 = new JPanel();
-        p1.setBackground(Color.DARK_GRAY); //JPanel 색상
-        p1.add(northL);
-
-        idT = new JTextArea(2, 30);
-        pwdT = new JTextArea();
-        p2 = new JPanel();
-        p2.add(idT);
-        p2.add(pwdT);
+        idText = new JTextField(21);
+        pwdField = new JPasswordField(21);
+        lookpwdBox = new JCheckBox("look pwd");
+        centerPanel = new JPanel();
+        centerPanel.add(idText);
+        centerPanel.add(pwdField);
+        centerPanel.add(lookpwdBox);
 
         cp = getContentPane();
-        cp.add(p1, BorderLayout.NORTH);
-        cp.add(p2);
+        cp.add(upPanel, BorderLayout.NORTH);
+        cp.add(downPanel, BorderLayout.SOUTH);
+        cp.add(centerPanel);
+
+        lookpwdBox.addActionListener(new lookpwdHandler(this));
     }
     void setUI(){
         setTitle("LogIn");
@@ -62,4 +80,20 @@ public class LogUI extends JFrame {
         lu.setUI();
     }
 
+}
+
+class lookpwdHandler implements ActionListener{ //check되었을때 비밀번호 * 표시
+    LogUI lu;
+    public lookpwdHandler(LogUI lu) {
+        this.lu = lu;
+    }
+    @Override
+    public void actionPerformed(ActionEvent a){
+        if(lu.lookpwdBox.isSelected()){
+            lu.pwdField.setEchoChar((char)0);
+            lu.pwdField.setText(new String(lu.pwdField.getPassword()));
+        }else{
+            lu.pwdField.setEchoChar('*');
+        }
+    }
 }
