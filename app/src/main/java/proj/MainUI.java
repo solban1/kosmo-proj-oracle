@@ -1,5 +1,99 @@
 package proj;
 
-public class MainUI {
-    
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class MainUI extends JFrame {
+    private JPanel topPanel, bottomPanel, dummyPanel, dummyPanel2;
+    private JLabel titleLbl;
+    private HashMap<String, JButton> bottomBtns;
+    private ActionListener attendListener, menuListener, homeListener, infoListener, logoutListener;
+
+    public MainUI() {
+        initListeners();
+        
+        topPanel = new JPanel();
+        topPanel.setBackground(new Color(Prop.COLOR_MAIN));
+        bottomPanel = new JPanel(new GridLayout(1, 5));
+        add(topPanel, BorderLayout.NORTH);
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        titleLbl = new JLabel("Main");
+        titleLbl.setFont(new Font("Malgun Gothic", Font.BOLD, 24));
+        titleLbl.setForeground(Color.WHITE);
+        topPanel.add(titleLbl);
+
+        bottomBtns = new HashMap<>(7);
+        bottomBtns.put("근태", new JButton("근태"));
+        bottomBtns.get("근태").addActionListener(attendListener);
+        bottomBtns.put("메뉴", new JButton("메뉴"));
+        bottomBtns.put("홈", new JButton("홈"));
+        bottomBtns.put("정보", new JButton("정보"));
+
+        Font btnFont = new Font("Malgun Gothic", Font.PLAIN, 16);
+        bottomBtns.forEach((k, v) -> {
+            v.setFont(btnFont);
+            v.setOpaque(true);
+            v.setBackground(new Color(Prop.COLOR_MAIN));
+            v.setForeground(Color.WHITE);
+            v.setPreferredSize(new Dimension(1, 40));
+        });
+
+        bottomPanel.add(bottomBtns.get("근태"));
+        bottomPanel.add(bottomBtns.get("메뉴"));
+        bottomPanel.add(bottomBtns.get("홈"));
+        bottomPanel.add(bottomBtns.get("정보"));
+
+        dummyPanel = new JPanel();
+        dummyPanel.add(new JLabel("dummyPanel"));
+        add(dummyPanel);
+        dummyPanel2 = new JPanel();
+        dummyPanel2.add(new JLabel("dummyPanel2"));
+
+        setUI();
+    }
+
+    private void initListeners() {
+        attendListener = e -> {
+            remove(dummyPanel);
+            add(dummyPanel2);
+            validate();
+        };
+        menuListener = e -> {
+            
+        };
+        homeListener = e -> {
+
+        };
+        infoListener = e -> {
+
+        };
+        logoutListener = e -> {
+
+        };
+
+    }
+
+    private void setUI() {
+        setTitle("HelloWare");
+        setSize(Prop.WIN_WIDTH, Prop.WIN_HEIGHT);
+        setVisible(true);
+        setLocationRelativeTo(null);
+
+        setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    public static void main(String[] args) {
+        new MainUI();
+    }
 }
