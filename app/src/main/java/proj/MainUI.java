@@ -38,6 +38,7 @@ public class MainUI extends JFrame {
         bottomBtns.get("근태").addActionListener(attendListener);
         bottomBtns.put("메뉴", new JButton("메뉴"));
         bottomBtns.put("홈", new JButton("홈"));
+        bottomBtns.get("홈").addActionListener(homeListener);
         bottomBtns.put("정보", new JButton("정보"));
         bottomBtns.get("정보").addActionListener(infoListener);
 
@@ -74,7 +75,8 @@ public class MainUI extends JFrame {
             
         };
         homeListener = e -> {
-
+            add(new Homepage());
+            validate();
         };
         infoListener = e -> {
             add(new InfoPanel());

@@ -8,13 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-public class Homepage extends JFrame {
+public class Homepage extends JPanel {
     
     JLabel jL1,jL2; 
     JOptionPane jp;
@@ -54,37 +53,8 @@ public class Homepage extends JFrame {
         bN2.setBackground(new Color(Prop.COLOR_MAIN));
         bS1.setBackground(new Color(Prop.COLOR_MAIN));
         bS2.setBackground(new Color(Prop.COLOR_MAIN));
-        bS3.setBackground(new Color(Prop.COLOR_MAIN));
-        
-        setUi();  
+        bS3.setBackground(new Color(Prop.COLOR_MAIN));  
     
-    }
-    /*void init(){
-
-		//p1 = new JPanel();
-     
-    
-        /*p1.setLayout(new GridLayout(2,1));
-        p1.add(bN1);
-        p1.add(bN2);
-
-        p1.add(bS1);
-        p1.add(bS2);
-        p1.add(bS3);
-        con.add(p1,BorderLayout.NORTH);
-       // pushb();
-       // createP();
-         
-    }*/       
-    
-    void setUi(){
-        setTitle("Main Home");
-        setSize(300, 500);
-        setVisible(true);
-        setLocationRelativeTo(null);
-
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
 public static void main(String[] args){
