@@ -1,13 +1,16 @@
 package proj;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.Vector;
 
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
+import javax.swing.ScrollPaneConstants;
 
 public class InfoPanel extends JPanel{
     JComboBox<String> dNameBox;
@@ -18,6 +21,8 @@ public class InfoPanel extends JPanel{
     Vector<String> dNames; //콤보박스를 눌러 부서명을 고를수있게
     Vector<Vector<String>> rowData; //해당 데이터의 내용을 출력 (ex: 이름 전화번호, 이메일)
     InfoPanel(){
+        setLayout(new BorderLayout());
+
         DBHandler dh = new DBHandler();
         dh.executeSelect();
         dNames = dh.getColumnData();
@@ -25,13 +30,15 @@ public class InfoPanel extends JPanel{
 
         dNameBox = new JComboBox<String>(dNames);
         dNameBox.setBackground(new Color(Prop.COLOR_MAIN));
-        //dNameBox.setForeground(Color.GRAY);
+        dNameBox.setForeground(Color.WHITE);
         infoTable = new JTable(rowData,dNames);
-        infoScroll = new JScrollPane(infoTable);
+        infoTable.setSize(30,30);
+        infoScroll = new JScrollPane(
+            infoTable,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+            ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-        setBorder(new EmptyBorder(15, 5, 15, 5));
-        add(dNameBox);
-        add(infoScroll);
+        add(dNameBox,BorderLayout.NORTH);
+        add(infoScroll).isMinimumSizeSet();
     }
 }
 //executeSelect, getColumnData, getData 
