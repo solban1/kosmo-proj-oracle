@@ -75,6 +75,9 @@ public class LogUI extends JFrame {
         joinButton.setFont(new Font("null",Font.PLAIN,15));
         logInButton.setForeground(Color.WHITE);
         joinButton.setForeground(Color.WHITE);
+
+        logInButton.addActionListener(new LoginListener(this));
+        
         downPanel.add(logInButton);
         downPanel.add(joinButton);
 
@@ -114,5 +117,18 @@ class LookpwdHandler implements ActionListener{ //check되었을때 비밀번호
         }else{
             lu.pwdField.setEchoChar('●');
         }
+    }
+}
+
+class LoginListener implements ActionListener {
+    JFrame p;
+
+    LoginListener(JFrame p) {
+        this.p = p;
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+        new MainUI();
+        p.setVisible(false);
     }
 }
