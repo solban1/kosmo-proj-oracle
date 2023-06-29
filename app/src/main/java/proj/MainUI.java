@@ -39,6 +39,7 @@ public class MainUI extends JFrame {
         bottomBtns.put("메뉴", new JButton("메뉴"));
         bottomBtns.put("홈", new JButton("홈"));
         bottomBtns.put("정보", new JButton("정보"));
+        bottomBtns.get("정보").addActionListener(infoListener);
 
         Font btnFont = new Font("Malgun Gothic", Font.PLAIN, 16);
         bottomBtns.forEach((k, v) -> {
@@ -76,7 +77,8 @@ public class MainUI extends JFrame {
 
         };
         infoListener = e -> {
-
+            add(new InfoPanel());
+            validate();
         };
         logoutListener = e -> {
 
