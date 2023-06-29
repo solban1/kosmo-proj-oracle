@@ -15,7 +15,9 @@ public class App extends JFrame {
     JButton b1;
     
     public static void main(String[] args) {
-        
+        LogUI lu = new LogUI();
+        lu.init();
+        lu.setUI();
     }
 
 }
