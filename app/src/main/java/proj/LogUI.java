@@ -1,5 +1,6 @@
 //Kjoonyoung 변경 0629 12:57
 //Login창 구현 0629 14:13
+//MainTitle 크기 변경 0629 14:48ㄴ
 // 수정 -> pull -> commit -> push _ctrl + shift + p
 package proj;
 
@@ -37,7 +38,7 @@ public class LogUI extends JFrame {
     void init(){
         upPanel = new JPanel();
         northL1 = new JLabel("Welcome");
-        northL1.setFont(new Font("맑은고딕", Font.BOLD, 18)); //글씨체 변경 맑은고딕,굵게, 18
+        northL1.setFont(new Font("맑은고딕", Font.BOLD, 24)); //글씨체 변경 맑은고딕,굵게, 18
         northL1.setForeground(Color.WHITE);
         upPanel.setBackground(new Color(Prop.COLOR_MAIN)); //JPanel 색상
         upPanel.add(northL1);
