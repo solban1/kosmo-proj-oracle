@@ -1,5 +1,5 @@
 //Kjoonyoung 변경 0629 12:57
-
+//Login창 구현 0629 14:13
 // 수정 -> pull -> commit -> push _ctrl + shift + p
 package proj;
 
@@ -23,13 +23,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
 public class LogUI extends JFrame {
-    Container cp;
-    JPanel upPanel, downPanel, centerPanel;
-    JTextField idField;
+    private Container cp;
+    private JPanel upPanel, downPanel, centerPanel;
+    private JTextField idField;
     JPasswordField pwdField;
-    JLabel northL1, laImg1;
-    ImageIcon image;
-    JButton logInButton, joinButton;
+    private JLabel northL1, laImg1;
+    private ImageIcon image;
+    private JButton logInButton, joinButton;
     JCheckBox lookpwdBox;
     LogUI(){
         
@@ -61,6 +61,7 @@ public class LogUI extends JFrame {
         downPanel = new JPanel();
         downPanel.setLayout(new GridLayout(1,2));
         downPanel.setBorder(new EmptyBorder(5, 30, 5, 30));
+        downPanel.setBackground(Color.WHITE);
         logInButton = new JButton("LogIn"); //로그인
         joinButton = new JButton("join"); //회원가입
         logInButton.setOpaque(true);
@@ -81,7 +82,7 @@ public class LogUI extends JFrame {
         cp.add(downPanel, BorderLayout.SOUTH);
         cp.add(centerPanel);
 
-        lookpwdBox.addActionListener(new lookpwdHandler(this));
+        lookpwdBox.addActionListener(new LookpwdHandler(this));
     }
     void setUI(){
         setTitle("LogIn");
@@ -99,9 +100,9 @@ public class LogUI extends JFrame {
     }
 }
 
-class lookpwdHandler implements ActionListener{ //check되었을때 비밀번호 * 표시
+class LookpwdHandler implements ActionListener{ //check되었을때 비밀번호 * 표시
     LogUI lu;
-    public lookpwdHandler(LogUI lu) {
+    public LookpwdHandler(LogUI lu) {
         this.lu = lu;
     }
     @Override
@@ -110,7 +111,7 @@ class lookpwdHandler implements ActionListener{ //check되었을때 비밀번호
             lu.pwdField.setEchoChar((char)0);
             lu.pwdField.setText(new String(lu.pwdField.getPassword()));
         }else{
-            lu.pwdField.setEchoChar('*');
+            lu.pwdField.setEchoChar('●');
         }
     }
 }
