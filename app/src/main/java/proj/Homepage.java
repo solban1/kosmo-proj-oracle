@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 
@@ -32,7 +33,7 @@ public class Homepage extends JPanel {
     JButton bS2 = new JButton("수정하기");
     JButton bS3 = new JButton("지우기");
     JButton downb4 = new JButton("로그아웃");
-    int exitnum = -1;
+    int exitnum = 0;
 
     Homepage() {
 
@@ -213,13 +214,17 @@ class HhandlerButton implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
-        JButton btn = new JButton();
+        
         System.out.println("로그아웃 버튼 클릭");
-        JOptionPane.showConfirmDialog(null, "로그아웃하시겠습니까?", "로그아웃", JOptionPane.YES_NO_OPTION,
-                JOptionPane.INFORMATION_MESSAGE, null);
-        if (hp.exitnum == -1) {
-            System.exit(-1);
+        int i = JOptionPane.showConfirmDialog(null, "로그아웃하시겠습니까?", "로그아웃", JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE);
+        if (i == JOptionPane.OK_OPTION) {
+                LogUI lu = new LogUI();
+                lu.init();
+                lu.setUI();
+                SwingUtilities.getWindowAncestor(hp).setVisible(false);
         }
 
-    }
+    }   
 }
+  
