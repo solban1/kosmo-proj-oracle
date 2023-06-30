@@ -12,8 +12,8 @@ public class DBHandler {
     private Connection con;
     private Statement stmt;
     private static final String URL = "jdbc:oracle:thin:@localhost:1521:JAVA";
-    private static final String USERNAME = "scott";
-    private static final String PASSWORD = "tiger";
+    private static final String USERNAME = "hello";
+    private static final String PASSWORD = "ware";
     private String tname;
     private ResultSet currentRs;
 
