@@ -30,29 +30,28 @@ public class Homepage extends JPanel {
     JButton bS1 = new JButton("등록하기");
     JButton bS2 = new JButton("수정하기");
     JButton bS3 = new JButton("지우기"); 
-    
-
+    JButton downb4 = new JButton("로그아웃");
+    int exitnum = -1;
    
     Homepage(){
         
         JPanel pp3 = new JPanel();
         setLayout(new BorderLayout());
-        pp3.setLayout(new GridLayout(1,3));
+        pp3.setLayout(new GridLayout(2,3));
 
         
-        JButton downb1 = new JButton("정보창1");
-        JButton downb2 = new JButton("정보창2");
-        JButton downb3 = new JButton("정보창3");
-        
+        JButton downb1 = new JButton("일정");
+        JButton downb2 = new JButton("날짜");
+        JButton downb3 = new JButton("업무");
+        JButton downb4 = new JButton("로그아웃");
+
+
         pp3.add(downb1);
         pp3.add(downb2);
         pp3.add(downb3);
-        add(pp3);
-  
+        pp3.add(downb4);
     
-        
-        pp3.add(downb1, BorderLayout.SOUTH);
-        
+    
 
         JPanel pp2 = new JPanel();
         setLayout(new BorderLayout());
@@ -64,7 +63,7 @@ public class Homepage extends JPanel {
    
         
         add(pp2);
-       
+        pp2.add(pp3);
     
     
         JPanel pp1 = new JPanel(); //상단위
@@ -84,105 +83,125 @@ public class Homepage extends JPanel {
         Np.setLayout(new GridLayout(1,2)); 
         Np.add(bN1);
         Np.add(bN2);
-        
+
         JPanel sP = new JPanel();
-		sP.setLayout(new GridLayout(1, 3)); //수정 지우기 삭제 버튼
-		sP.add(bS1);
-		sP.add(bS2);
-		sP.add(bS3);
-		
-        pp2.add(pp1,BorderLayout.SOUTH);
+        sP.setLayout(new GridLayout(1, 3)); // 수정 지우기 삭제 버튼
+        sP.add(bS1);
+        sP.add(bS2);
+        sP.add(bS3);
 
-		pp1.add(Np, BorderLayout.NORTH);
-		pp1.add(sP, BorderLayout.SOUTH);
-        
+        pp2.add(pp3, BorderLayout.NORTH);
+        pp2.add(pp1, BorderLayout.SOUTH);
+
+        pp1.add(Np, BorderLayout.NORTH);
+        pp1.add(sP, BorderLayout.SOUTH);
+
         add(pp1, BorderLayout.CENTER);
-        add(pp2,BorderLayout.NORTH);
+        add(pp2, BorderLayout.NORTH);
 
-        /*  bN1.setBorderPainted(false); // 버튼의 윤곽선 지우기
-        bN2.setBorderPainted(false);
-        bS1.setBorderPainted(false);
-        bS2.setBorderPainted(false);
-        bS3.setBorderPainted(false);*/
+        /*
+         * bN1.setBorderPainted(false); // 버튼의 윤곽선 지우기
+         * bN2.setBorderPainted(false);
+         * bS1.setBorderPainted(false);
+         * bS2.setBorderPainted(false);
+         * bS3.setBorderPainted(false);
+         */
         upb.setBorderPainted(false);
+        downb1.setBorderPainted(false);
+        downb2.setBorderPainted(false);
+        downb3.setBorderPainted(false);
+        downb4.setBorderPainted(false);
 
-        bN1.setFont(new Font("맑은고딕", Font.BOLD, 24));  // 글꼴
-        bN2.setFont(new Font("맑은고딕", Font.BOLD, 24));  
-       // bS1.setFont(new Font("맑은고딕", Font.BOLD, 24));
-       // bS2.setFont(new Font("맑은고딕", Font.BOLD, 24));
-       // bS3.setFont(new Font("맑은고딕", Font.BOLD, 24));
+        bN1.setFont(new Font("맑은고딕", Font.BOLD, 24)); // 글꼴
+        bN2.setFont(new Font("맑은고딕", Font.BOLD, 24));
+        // bS1.setFont(new Font("맑은고딕", Font.BOLD, 24));
+        // bS2.setFont(new Font("맑은고딕", Font.BOLD, 24));
+        // bS3.setFont(new Font("맑은고딕", Font.BOLD, 24));
 
-
-        bN1.addActionListener(new Hhandler(this)); //출근
-        bN2.addActionListener(new Hhandler(this)); //퇴근
-        bS1.addActionListener(new Hhandler(this)); //수정
-        bS2.addActionListener(new Hhandler(this)); //수정하기 
+        bN1.addActionListener(new Hhandler(this)); // 출근
+        bN2.addActionListener(new Hhandler(this)); // 퇴근
+        bS1.addActionListener(new Hhandler(this)); // 수정
+        bS2.addActionListener(new Hhandler(this)); // 수정하기
         bS3.addActionListener(new Hhandler(this)); // 지우기
-        
+        downb4.addActionListener(new Hhandler(this));
 
+        /*
+         * JPanel center = new JPanel(); // 가운데 들어갈 패널
+         * JScrollPane jsp = new JScrollPane();
+         * center.setLayout(new BorderLayout());
+         * center.add(jsp);
+         */
 
-
-        /*JPanel center = new JPanel(); //  가운데 들어갈 패널
-        JScrollPane jsp = new JScrollPane();
-        center.setLayout(new BorderLayout());
-        center.add(jsp);*/
-
-        
-        
-		bN1.setBackground(new Color(Prop.COLOR_MAIN));
+        bN1.setBackground(new Color(Prop.COLOR_MAIN));
         bN2.setBackground(new Color(Prop.COLOR_MAIN));
         bS1.setBackground(new Color(Prop.COLOR_MAIN));
         bS2.setBackground(new Color(Prop.COLOR_MAIN));
-        bS3.setBackground(new Color(Prop.COLOR_MAIN));  
+        bS3.setBackground(new Color(Prop.COLOR_MAIN));
         upb.setBackground(new Color(Prop.COLOR_MAIN));
         downb1.setBackground(new Color(Prop.COLOR_MAIN));
         downb2.setBackground(new Color(Prop.COLOR_MAIN));
         downb3.setBackground(new Color(Prop.COLOR_MAIN));
-    
-    } 
+        downb4.setBackground(new Color(Prop.COLOR_MAIN));
 
-public static void main(String[] args){
-    Homepage h = new Homepage();
-      
+    }
+
+    public static void main(String[] args) {
+        Homepage h = new Homepage();
+
     }
 }
-    class Hhandler implements ActionListener{
+
+class Hhandler implements ActionListener {
     Homepage h1;
-    Hhandler(Homepage h1){
+    
+    Hhandler(Homepage h1) {
         this.h1 = h1;
-        
-    }
-    @Override
-	public void actionPerformed(ActionEvent e){
-        ImageIcon icon1 = new ImageIcon("res/out1.png"); //출근 이미지
-        ImageIcon icon2 = new ImageIcon("res/go1.png"); // 퇴근이미지 
-        
-        
-        UIManager.put("OptionPane.background", new Color(177, 224, 227)); //UIOPTION 색상
-       // UIManager.put("Panel.background", new Color(53, 20, 219)); 
-        UIManager.put("Button.background", new Color(194, 177, 227));
-        
-		JButton b = (JButton)e.getSource();
-		JOptionPane jp = new JOptionPane();
 
-        if(b == h1.bN1 ){
-            
-            System.out.println("출근버튼 클릭");
-            JOptionPane.showConfirmDialog(null,"출근하시겠습니까?","출근",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,icon1);  
-            //JOptionPane.showMessageDialog(null,"출근이 완료되었습니다",null,JOptionPane.PLAIN_MESSAGE); 
-      
-        }else if(b == h1.bN2){
-            System.out.println("퇴근버튼 클릭");
-            JOptionPane.showConfirmDialog(null,"퇴근하시겠습니까?","퇴근",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,icon2);     
-        }else if(b == h1.bS1){
-            System.out.println("등록버튼 클릭");
-            JOptionPane.showConfirmDialog(null,"등록하시겠습니까?","등록중",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null);
-        } else if(b == h1.bS2){
-            System.out.println("수정버튼 클릭");
-            JOptionPane.showConfirmDialog(null,"수정하시겠습니까?","수정중",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null);
-        }else if(b == h1.bS3){	
-            System.out.println("삭제버튼 클릭");
-            JOptionPane.showConfirmDialog(null,"삭제하시겠습니까?","삭제",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null);
-        }
     }
-}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        ImageIcon icon1 = new ImageIcon("res/out1.png"); // 출근 이미지
+        ImageIcon icon2 = new ImageIcon("res/go1.png"); // 퇴근이미지
+
+        UIManager.put("OptionPane.background", new Color(177, 224, 227)); // UIOPTION 색상
+        // UIManager.put("Panel.background", new Color(53, 20, 219));
+        UIManager.put("Button.background", new Color(194, 177, 227));
+
+        JButton b = (JButton) e.getSource();
+        JOptionPane jp = new JOptionPane();
+
+                if (b == h1.bN1) {
+
+                    System.out.println("출근버튼 클릭");
+                    JOptionPane.showConfirmDialog(null, "출근하시겠습니까?", "출근", JOptionPane.YES_NO_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE, icon1);
+                    // JOptionPane.showMessageDialog(null,"출근이
+                    // 완료되었습니다",null,JOptionPane.PLAIN_MESSAGE);
+
+                } else if (b == h1.bN2) {
+                    System.out.println("퇴근버튼 클릭");
+                    JOptionPane.showConfirmDialog(null, "퇴근하시겠습니까?", "퇴근", JOptionPane.YES_NO_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE, icon2);
+                } else if (b == h1.bS1) {
+                    System.out.println("등록버튼 클릭");
+                    JOptionPane.showConfirmDialog(null, "등록하시겠습니까?", "등록중", JOptionPane.YES_NO_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE, null);
+                } else if (b == h1.bS2) {
+                    System.out.println("수정버튼 클릭");
+                    JOptionPane.showConfirmDialog(null, "수정하시겠습니까?", "수정중", JOptionPane.YES_NO_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE, null);
+                } else if (b == h1.bS3) {
+                    System.out.println("삭제버튼 클릭");
+                    JOptionPane.showConfirmDialog(null, "삭제하시겠습니까?", "삭제", JOptionPane.YES_NO_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE, null);
+                } else if (b == h1.downb4) {
+                    System.out.println("로그아웃 버튼 클릭");
+                    JOptionPane.showConfirmDialog(null, "로그아웃하시겠습니까?", "로그아웃", JOptionPane.YES_NO_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE, null);
+                    if (h1.exitnum == -1) {
+                        System.exit(-1);
+                    }
+                }
+            }
+        }
