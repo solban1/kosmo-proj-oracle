@@ -72,6 +72,7 @@ public class MainUI extends JFrame {
         addImpl(comp, null, -1);
         currentPanel = comp;
         return comp;
+        
     }
 
     private void initListeners() {
