@@ -21,15 +21,14 @@ public class DBHandler {
         try {
             con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             stmt = con.createStatement();
-            this.tname = tname;
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println("Connection SQLException: " + e.getMessage());
         }
+        this.tname = tname;
     }
 
     public DBHandler() {
-        this("DEPT");
+        this("EMP");
     }
 
     public ResultSet executeQuery(String sql) throws SQLException {
@@ -45,13 +44,50 @@ public class DBHandler {
         return stmt.execute(sql);
     }
 
-    public void executeSelect() {
+    /**
+     * 전체 열에 대한 select 구문을 돌림.
+     * 
+     * @param localTname 테이블명
+     * @return {@code ResultSet}
+     */
+    public ResultSet executeSelect(String localTname) {
         try {
-            executeQuery("select * from " + tname);
+            return executeQuery("select * from " + localTname);
         } catch (SQLException e) {
             System.err.println("executeSelect() SQLException: " + e);
+            return null;
         }
     }
+    /**
+     * 최근 select된 테이블의 전체 열에 대한 select 구문을 돌림.
+     * 
+     * @return ResultSet
+     */
+    public ResultSet executeSelect() {
+        return executeSelect(tname);
+    }
+
+    /**
+     * 특정 열에 대한 select 구문을 돌림.
+     * 
+     * @param localTname 테이블명
+     * @param columns 조회할 컬럼명
+     * @return ResultSet
+     */
+    public ResultSet executeSelectColumns(String localTname, String... columns) {
+        try {
+            return executeQuery("select " + String.join(", ", columns) + " from " + localTname);
+        } catch (SQLException e) {
+            System.err.println("executeSelect() SQLException: " + e);
+            return null;
+        }
+    }
+    
+    /**
+     * 최근 조회된 {@code ResultSet}에 대한 컬럼명의 {@code Vector}를 가져옴.
+     * 
+     * @return 컬럼명의 {@code Vector}
+     */
     public Vector<String> getColumnData() {
         Vector<String> columnData;
         try {
@@ -75,6 +111,11 @@ public class DBHandler {
         return columnData;
     }
 
+    /**
+     * 최근 조회된 {@code ResultSet}에 대한 레코드를 이중 {@code Vector}의 형태로 가져옴.
+     * 
+     * @return 레코드의 {@code Vector}
+     */
     public Vector<Vector<String>> getData() {
         Vector<Vector<String>> data;
         try {
@@ -102,9 +143,16 @@ public class DBHandler {
         return data;
     }
 
-    public boolean checkPassword(String id, String pw) {
+    /**
+     * 이메일과 패스워드가 일치하는지 확인함.
+     * 
+     * @param email 확인할 회원의 이메일
+     * @param pw 확인할 회원의 패스워드
+     * @return 일치하면 {@code true}, 일치하지 않거나 이메일이 없으면 {@code false}
+     */
+    public boolean checkPassword(String email, String pw) {
         try {
-            ResultSet rs = stmt.executeQuery("select PWD from EMP where EMAIL='" + id + "'");
+            ResultSet rs = stmt.executeQuery("select PWD from EMP where EMAIL='" + email + "'");
             if (!rs.next()) {
                 return false;
             }
