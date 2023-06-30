@@ -2,6 +2,7 @@
 //Login창 구현 0629 14:13
 //MainTitle 크기 변경 0629 14:48ㄴ
 //joinButton //삭제 23-06-30 굳이 회원가입 버튼이 필요x -> 회사에서 이메일 + 사원번호로 id pwd 부여 로그인 후 비밀번호 변경
+//pwdField Enter 입력시 로그인 시도
 // 수정 -> pull -> commit -> push _ctrl + shift + p
 package proj;
 
@@ -32,7 +33,7 @@ public class LogUI extends JFrame {
     JPasswordField pwdField;
     private JLabel northL1, laImg1;
     private ImageIcon image;
-    private JButton loginButton;
+    JButton loginButton;
     JCheckBox lookpwdBox;
     DBHandler dh;
     LogUI(){
@@ -69,8 +70,6 @@ public class LogUI extends JFrame {
         loginButton.setBorder(new EtchedBorder(30));
         loginButton.setFont(new Font("null",Font.PLAIN,15));
         loginButton.setForeground(Color.WHITE);
-        lookpwdBox.addActionListener(new LookpwdListener(this));
-        loginButton.addActionListener(new LoginListener(this));
 
         downPanel = new JPanel();
         downPanel.setLayout(new GridLayout(1,2));
@@ -82,6 +81,10 @@ public class LogUI extends JFrame {
         cp.add(upPanel, BorderLayout.NORTH);
         cp.add(downPanel, BorderLayout.SOUTH);
         cp.add(centerPanel);   
+
+        lookpwdBox.addActionListener(new LookpwdListener(this));
+        loginButton.addActionListener(new LoginListener(this));
+        pwdField.addActionListener(new LoginListener(this));
     }
     void setUI(){
         setTitle("LogIn");
@@ -117,7 +120,6 @@ class LookpwdListener implements ActionListener{ //check되었을때 비밀번�
 
 class LoginListener implements ActionListener {
     LogUI lu;
-
     LoginListener(LogUI lu) {
         this.lu = lu;
     }
@@ -134,5 +136,7 @@ class LoginListener implements ActionListener {
         }else{
            JOptionPane.showMessageDialog(null, "아이디, 비밀번호를 확인해주세요", "try again", JOptionPane.ERROR_MESSAGE);
         }
+        System.out.println(inputId);
+        System.out.println(inputPwd);
     }
 }
