@@ -101,4 +101,17 @@ public class DBHandler {
 
         return data;
     }
+
+    public boolean checkPassword(String id, String pw) {
+        try {
+            ResultSet rs = stmt.executeQuery("select PWD from EMP where EMPNO=" + id);
+            if (!rs.next()) {
+                return false;
+            }
+            return pw == rs.getString(1);
+        } catch (SQLException e) {
+            System.err.println("checkPassword() 실패");
+            return false;
+        }
+    }
 }
