@@ -144,6 +144,28 @@ public class DBHandler {
     }
 
     /**
+     * 부서명 목록을 가져옴.
+     * 
+     * @return 부서명의 {@code Vector}
+     */
+    public Vector<String> getDNames() {
+        Vector<String> dNames;
+        try {
+            ResultSet rs = executeQuery("select DNAME from DEPT");
+
+            dNames = new Vector<>();
+            while (rs.next()) {
+                dNames.add(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            System.err.println("getDNames() SQLException: " + e.getMessage());
+            return null;
+        }
+
+        return dNames;
+    }
+
+    /**
      * 이메일과 패스워드가 일치하는지 확인함.
      * 
      * @param email 확인할 회원의 이메일
