@@ -108,7 +108,8 @@ public class DBHandler {
             if (!rs.next()) {
                 return false;
             }
-            return pw == rs.getString(1);
+            String dbpw = rs.getString(1);
+            return pw.equals(dbpw);
         } catch (SQLException e) {
             System.err.println("checkPassword() SQLException: " + e.getMessage());
             return false;
