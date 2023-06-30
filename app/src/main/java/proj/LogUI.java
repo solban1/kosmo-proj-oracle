@@ -1,6 +1,7 @@
 //Kjoonyoung 변경 0629 12:57
 //Login창 구현 0629 14:13
 //MainTitle 크기 변경 0629 14:48ㄴ
+//joinButton //삭제 23-06-30 굳이 회원가입 버튼이 필요x -> 회사에서 이메일 + 사원번호로 id pwd 부여 로그인 후 비밀번호 변경
 // 수정 -> pull -> commit -> push _ctrl + shift + p
 package proj;
 
@@ -15,8 +16,10 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -26,14 +29,15 @@ import javax.swing.border.EtchedBorder;
 public class LogUI extends JFrame {
     private Container cp;
     private JPanel upPanel, downPanel, centerPanel;
-    private JTextField idField;
+    JTextField idField;
     JPasswordField pwdField;
     private JLabel northL1, laImg1;
     private ImageIcon image;
-    private JButton logInButton, joinButton;
+    private JButton loginButton;
     JCheckBox lookpwdBox;
+    DBHandler dh;
     LogUI(){
-        
+
     }
     void init(){
         upPanel = new JPanel();
@@ -45,6 +49,7 @@ public class LogUI extends JFrame {
 
         idField = new JTextField(23);
         pwdField = new JPasswordField(23);
+        pwdField.setEchoChar('●');
         lookpwdBox = new JCheckBox("press the check box");
         lookpwdBox.setBorder(new EmptyBorder(30,0,30,0));
         lookpwdBox.setBackground(Color.WHITE);
@@ -63,30 +68,23 @@ public class LogUI extends JFrame {
         downPanel.setLayout(new GridLayout(1,2));
         downPanel.setBorder(new EmptyBorder(5, 30, 5, 30));
         downPanel.setBackground(Color.WHITE);
-        logInButton = new JButton("LogIn"); //로그인
-        joinButton = new JButton("join"); //회원가입
-        logInButton.setOpaque(true);
-        joinButton.setOpaque(true);
-        logInButton.setBackground(new Color(Prop.COLOR_MAIN));
-        joinButton.setBackground(new Color(Prop.COLOR_MAIN));
-        logInButton.setBorder(new EtchedBorder(30));
-        joinButton.setBorder(new EtchedBorder(30));
-        logInButton.setFont(new Font("null",Font.PLAIN,15));
-        joinButton.setFont(new Font("null",Font.PLAIN,15));
-        logInButton.setForeground(Color.WHITE);
-        joinButton.setForeground(Color.WHITE);
-
-        logInButton.addActionListener(new LoginListener(this));
-        
-        downPanel.add(logInButton);
-        downPanel.add(joinButton);
+        loginButton = new JButton("LogIn"); //로그인
+    
+        loginButton.setOpaque(true);
+        loginButton.setBackground(new Color(Prop.COLOR_MAIN));
+        loginButton.setBorder(new EtchedBorder(30));
+        loginButton.setFont(new Font("null",Font.PLAIN,15));
+        loginButton.setForeground(Color.WHITE);
+        lookpwdBox.addActionListener(new LookpwdListener(this));
+        loginButton.addActionListener(new LoginListener(this));
+        downPanel.add(loginButton);
 
         cp = getContentPane();
         cp.add(upPanel, BorderLayout.NORTH);
         cp.add(downPanel, BorderLayout.SOUTH);
         cp.add(centerPanel);
 
-        lookpwdBox.addActionListener(new LookpwdHandler(this));
+        
     }
     void setUI(){
         setTitle("LogIn");
@@ -104,13 +102,13 @@ public class LogUI extends JFrame {
     }
 }
 
-class LookpwdHandler implements ActionListener{ //check되었을때 비밀번호 * 표시
+class LookpwdListener implements ActionListener{ //check되었을때 비밀번호 * 표시
     LogUI lu;
-    public LookpwdHandler(LogUI lu) {
+    public LookpwdListener(LogUI lu) {
         this.lu = lu;
     }
     @Override
-    public void actionPerformed(ActionEvent a){
+    public void actionPerformed(ActionEvent e){
         if(lu.lookpwdBox.isSelected()){
             lu.pwdField.setEchoChar((char)0);
             lu.pwdField.setText(new String(lu.pwdField.getPassword()));
@@ -121,14 +119,25 @@ class LookpwdHandler implements ActionListener{ //check되었을때 비밀번호
 }
 
 class LoginListener implements ActionListener {
-    JFrame p;
+    LogUI lu;
 
-    LoginListener(JFrame p) {
-        this.p = p;
+    LoginListener(LogUI lu) {
+        this.lu = lu;
     }
-    
     public void actionPerformed(ActionEvent e) {
-        new MainUI();
-        p.setVisible(false);
+        String inputId = lu.idField.getText();
+        String inputPwd = new String(lu.pwdField.getPassword());
+        //System.out.println(inputId);
+        //System.out.println(inputPwd);
+        if(lu.dh==null){
+            lu.dh = new DBHandler();
+            lu.dh.checkPassword(inputId, inputPwd);
+        }
+        if(lu.dh.checkPassword(inputId, inputPwd)){
+            new MainUI();
+            lu.setVisible(false);
+        }else{
+           JOptionPane.showMessageDialog(null, "아이디, 비밀번호를 확인해주세요", "try again", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
