@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -50,26 +49,21 @@ public class LogUI extends JFrame {
         idField = new JTextField(23);
         pwdField = new JPasswordField(23);
         pwdField.setEchoChar('●');
-        lookpwdBox = new JCheckBox("press the check box");
-        lookpwdBox.setBorder(new EmptyBorder(30,0,30,0));
+        lookpwdBox = new JCheckBox("체크박스 클릭시 비밀번호 보임");
         lookpwdBox.setBackground(Color.WHITE);
+        image = new ImageIcon("res/logo1.png"); //아이콘 삽입
+        laImg1 = new JLabel(image);
+        laImg1.setBorder(new EmptyBorder(0, 0, 30, 0));   
+        
         centerPanel = new JPanel();
         centerPanel.setBackground(Color.WHITE);
         centerPanel.setBorder(new EmptyBorder(60,0,60,0)); //패널 위 아래 공백
-        image = new ImageIcon("res/logo1.png"); //아이콘 삽입
-        laImg1 = new JLabel(image);
-        laImg1.setBorder(new EmptyBorder(0, 0, 30, 0));    
         centerPanel.add(laImg1);
         centerPanel.add(idField);
         centerPanel.add(pwdField);
         centerPanel.add(lookpwdBox);
 
-        downPanel = new JPanel();
-        downPanel.setLayout(new GridLayout(1,2));
-        downPanel.setBorder(new EmptyBorder(5, 30, 5, 30));
-        downPanel.setBackground(Color.WHITE);
-        loginButton = new JButton("LogIn"); //로그인
-    
+        loginButton = new JButton("LogIn");
         loginButton.setOpaque(true);
         loginButton.setBackground(new Color(Prop.COLOR_MAIN));
         loginButton.setBorder(new EtchedBorder(30));
@@ -77,14 +71,17 @@ public class LogUI extends JFrame {
         loginButton.setForeground(Color.WHITE);
         lookpwdBox.addActionListener(new LookpwdListener(this));
         loginButton.addActionListener(new LoginListener(this));
+
+        downPanel = new JPanel();
+        downPanel.setLayout(new GridLayout(1,2));
+        downPanel.setBorder(new EmptyBorder(5, 30, 5, 30));
+        downPanel.setBackground(Color.WHITE);
         downPanel.add(loginButton);
 
         cp = getContentPane();
         cp.add(upPanel, BorderLayout.NORTH);
         cp.add(downPanel, BorderLayout.SOUTH);
-        cp.add(centerPanel);
-
-        
+        cp.add(centerPanel);   
     }
     void setUI(){
         setTitle("LogIn");
@@ -127,8 +124,6 @@ class LoginListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String inputId = lu.idField.getText();
         String inputPwd = new String(lu.pwdField.getPassword());
-        //System.out.println(inputId);
-        //System.out.println(inputPwd);
         if(lu.dh==null){
             lu.dh = new DBHandler();
             lu.dh.checkPassword(inputId, inputPwd);
