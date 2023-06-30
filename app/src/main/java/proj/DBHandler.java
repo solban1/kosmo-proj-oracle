@@ -110,7 +110,7 @@ public class DBHandler {
             }
             return pw == rs.getString(1);
         } catch (SQLException e) {
-            System.err.println("checkPassword() 실패");
+            System.err.println("checkPassword() SQLException: " + e.getMessage());
             return false;
         }
     }
