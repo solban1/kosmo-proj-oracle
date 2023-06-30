@@ -8,6 +8,10 @@ import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+
 import javax.swing.ImageIcon;
 
 import javax.swing.JButton;
@@ -20,14 +24,15 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 
+
 public class Homepage extends JPanel {
 
     JLabel jL1, jL2;
     JOptionPane jp;
     Container con;
     JButton[] btn = new JButton[5];
-    JButton bN1 = new JButton("출근하기");
-    JButton bN2 = new JButton("퇴근하기");
+    JButton bN1 = new JButton("출근");
+    JButton bN2 = new JButton("퇴근");
     JButton bN3 = new JButton("정보");
     JButton bS1 = new JButton("등록하기");
     JButton bS2 = new JButton("수정하기");
@@ -99,9 +104,16 @@ public class Homepage extends JPanel {
         downb3.setBorderPainted(false);
         downb4.setBorderPainted(false);
 
-        bN1.setFont(new Font("맑은고딕", Font.BOLD, 24)); // 글꼴
-        bN2.setFont(new Font("맑은고딕", Font.BOLD, 24));
-       
+        bN1.setFont(new Font("맑은고딕", Font.BOLD, 20)); // 글꼴
+        bN2.setFont(new Font("맑은고딕", Font.BOLD, 20));
+        bS1.setFont(new Font("맑은고딕", Font.BOLD, 12)); 
+        bS2.setFont(new Font("맑은고딕", Font.BOLD, 12));
+        bS3.setFont(new Font("맑은고딕", Font.BOLD, 12));      
+
+        downb1.setFont(new Font("궁서체", Font.BOLD, 13));
+        downb2.setFont(new Font("맑은고딕", Font.BOLD, 13));
+        downb3.setFont(new Font("맑은고딕", Font.BOLD, 13));
+        downb4.setFont(new Font("맑은고딕", Font.BOLD, 13));
 
         bN1.addActionListener(new Hhandler(this)); // 출근
         bN2.addActionListener(new Hhandler(this)); // 퇴근
@@ -117,14 +129,13 @@ public class Homepage extends JPanel {
         bS1.setBackground(new Color(Prop.COLOR_MAIN));
         bS2.setBackground(new Color(Prop.COLOR_MAIN));
         bS3.setBackground(new Color(Prop.COLOR_MAIN));
-        upb.setBackground(new Color(Prop.COLOR_MAIN));
-        downb1.setBackground(new Color(Prop.COLOR_MAIN));
-        downb2.setBackground(new Color(Prop.COLOR_MAIN));
-        downb3.setBackground(new Color(Prop.COLOR_MAIN));
-        downb4.setBackground(new Color(Prop.COLOR_MAIN));
+        upb.setBackground(new Color(002,170,178));
+        downb1.setBackground(new Color(180,239,236));
+        downb2.setBackground(new Color(188,206,178));
+        downb3.setBackground(new Color(207,255,229));
+        downb4.setBackground(new Color(170,240,209));
 
     }
-
     public static void main(String[] args) {
         Homepage h = new Homepage();
 
