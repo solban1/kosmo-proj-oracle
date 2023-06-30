@@ -24,11 +24,11 @@ public class InfoPanel extends JPanel{
         setLayout(new BorderLayout());
 
         DBHandler dh = new DBHandler();
-        dh.executeSelect();
+        dh.executeSelectColumns("EMP","ENAME","PH","EMAIL");
         dNames = dh.getColumnData();
         rowData = dh.getData();
 
-        dNameBox = new JComboBox<String>(dNames);
+        dNameBox = new JComboBox<String>(dh.getDNames());
         dNameBox.setBackground(new Color(Prop.COLOR_MAIN));
         dNameBox.setForeground(Color.WHITE);
         infoTable = new JTable(rowData,dNames);

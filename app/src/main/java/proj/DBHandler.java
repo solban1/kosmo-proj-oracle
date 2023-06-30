@@ -16,6 +16,7 @@ public class DBHandler {
     private static final String PASSWORD = "ware";
     private String tname;
     private ResultSet currentRs;
+    public Object getData;
 
     public DBHandler(String tname) {
         try {
