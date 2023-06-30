@@ -104,7 +104,7 @@ public class DBHandler {
 
     public boolean checkPassword(String id, String pw) {
         try {
-            ResultSet rs = stmt.executeQuery("select PWD from EMP where EMPNO=" + id);
+            ResultSet rs = stmt.executeQuery("select PWD from EMP where EMPNO='" + id + "'");
             if (!rs.next()) {
                 return false;
             }
