@@ -42,7 +42,7 @@ public class Homepage extends JPanel {
         pp3.setLayout(new GridLayout(2, 3));
 
         JButton downb1 = new JButton("일정");
-        JButton downb2 = new JButton("날짜");
+        JButton downb2 = new JButton("현재 날짜");
         JButton downb3 = new JButton("업무");
         JButton downb4 = new JButton("로그아웃");
 
@@ -54,7 +54,7 @@ public class Homepage extends JPanel {
         JPanel pp2 = new JPanel();
         setLayout(new BorderLayout());
         pp2.setLayout(new GridLayout(1, 3));
-        JButton upb = new JButton("정보창");
+        JButton upb = new JButton("사원 이름,부서번호");
 
         pp2.add(upb);
 
@@ -92,14 +92,8 @@ public class Homepage extends JPanel {
         add(pp1, BorderLayout.CENTER);
         add(pp2, BorderLayout.NORTH);
 
-        /*
-         * bN1.setBorderPainted(false); // 버튼의 윤곽선 지우기
-         * bN2.setBorderPainted(false);
-         * bS1.setBorderPainted(false);
-         * bS2.setBorderPainted(false);
-         * bS3.setBorderPainted(false);
-         */
-        upb.setBorderPainted(false);
+   
+        upb.setBorderPainted(false);     //버튼 윤곽선 지우기
         downb1.setBorderPainted(false);
         downb2.setBorderPainted(false);
         downb3.setBorderPainted(false);
@@ -107,9 +101,7 @@ public class Homepage extends JPanel {
 
         bN1.setFont(new Font("맑은고딕", Font.BOLD, 24)); // 글꼴
         bN2.setFont(new Font("맑은고딕", Font.BOLD, 24));
-        // bS1.setFont(new Font("맑은고딕", Font.BOLD, 24));
-        // bS2.setFont(new Font("맑은고딕", Font.BOLD, 24));
-        // bS3.setFont(new Font("맑은고딕", Font.BOLD, 24));
+       
 
         bN1.addActionListener(new Hhandler(this)); // 출근
         bN2.addActionListener(new Hhandler(this)); // 퇴근
@@ -118,16 +110,7 @@ public class Homepage extends JPanel {
         bS3.addActionListener(new Hhandler(this)); // 지우기
 
         downb4.addActionListener(new HhandlerButton(this)); // 로그아웃 버튼
-        // downb4.addActionListener((eb)->{
-        // System.out.println("로그아웃 버튼 클릭1111");
-        // System.exit(-1);
-        // });
-        /*
-         * JPanel center = new JPanel(); // 가운데 들어갈 패널
-         * JScrollPane jsp = new JScrollPane();
-         * center.setLayout(new BorderLayout());
-         * center.add(jsp);
-         */
+      
 
         bN1.setBackground(new Color(Prop.COLOR_MAIN));
         bN2.setBackground(new Color(Prop.COLOR_MAIN));
@@ -171,10 +154,9 @@ class Hhandler implements ActionListener {
         if (b.equals(h1.bN1)) {
 
             System.out.println("출근버튼 클릭");
-            JOptionPane.showConfirmDialog(null, "출근하시겠습니까?", "출근", JOptionPane.YES_NO_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE, icon1);
-            // JOptionPane.showMessageDialog(null,"출근이
-            // 완료되었습니다",null,JOptionPane.PLAIN_MESSAGE);
+            /*JOptionPane.showConfirmDialog(null, "출근하시겠습니까?", "출근", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE, icon1);*/
+            JOptionPane.showMessageDialog(null,"출근이 완료되었습니다",null,JOptionPane.PLAIN_MESSAGE);
 
         } else if (b.equals(h1.bN2)) {
             System.out.println("퇴근버튼 클릭");
@@ -183,15 +165,7 @@ class Hhandler implements ActionListener {
         } else if (b.equals(h1.bS1)) {
             System.out.println("등록버튼 클릭");
             JOptionPane.showConfirmDialog(null, "등록하시겠습니까?", "등록중", JOptionPane.YES_NO_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE, null);
-        } else if (b.equals(h1.downb4)) {
-
-            System.out.println("로그아웃 버튼 클릭");
-            JOptionPane.showConfirmDialog(null, "로그아웃하시겠습니까?", "로그아웃", JOptionPane.YES_NO_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE, null);
-            if (h1.exitnum == -1) {
-                System.exit(-1);
-            }
+                    JOptionPane.INFORMATION_MESSAGE, null);   
         } else if (b.equals(h1.bS2)) {
             System.out.println("수정버튼 클릭");
             JOptionPane.showConfirmDialog(null, "수정하시겠습니까?", "수정중", JOptionPane.YES_NO_OPTION,
