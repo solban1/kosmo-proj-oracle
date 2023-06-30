@@ -93,7 +93,10 @@ public class MainUI extends JFrame {
             validate();
         };
         logoutListener = e -> {
-
+            LogUI lu = new LogUI();
+            lu.init();
+            lu.setUI();
+            setVisible(false);
         };
 
     }
