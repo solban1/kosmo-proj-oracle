@@ -2,8 +2,6 @@ package proj;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.util.Vector;
 
 import javax.swing.JComboBox;
