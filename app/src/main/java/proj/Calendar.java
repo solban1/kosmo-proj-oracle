@@ -18,8 +18,9 @@ public class Calendar extends JPanel {
     JButton lastweekButton, nextweekButton;
     JPanel upPanel, mainPanel;
     JPanel[] weekPanel;
-    JLabel[] l, t;
-    ArrayList<ArrayList<JLabel>> day;
+    JLabel[] l;
+    JPanel[] t;
+    ArrayList<ArrayList<String>> day;
     Calendar(){
         lastweekButton = new JButton("<---"); //나중에 이미지로 대체
         nextweekButton = new JButton("--->"); //나중에 이미지로 대체
@@ -27,23 +28,23 @@ public class Calendar extends JPanel {
         weekPanel = new JPanel[7];
         mainPanel = new JPanel();
         l = new JLabel[7];
-        t = new JLabel[7];
+        t = new JPanel[7];
 
         LocalDate sunday = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+        DBHandler db = new DBHandler();
         day = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
-            //ArrayList<JLabel> list = db.getSchedule(...);
-            
-            //day.add(list);
+            ArrayList<String> list = db.getSchedule("인사팀", sunday.plusDays(i));
+            day.add(list);
         }
 
         for(int i=0; i<=6; i++){
             l[i] = new JLabel();
-            t[i] = day.get(i);
+            // t[i] = day.get(i);
             l[i].setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-            t[i].setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+            // t[i].setFont(new Font("맑은 고딕", Font.PLAIN, 12));
             l[i].setBorder(new LineBorder(new Color(Prop.COLOR_MAIN)));
-            t[i].setBorder(new LineBorder(new Color(Prop.COLOR_MAIN)));
+            // t[i].setBorder(new LineBorder(new Color(Prop.COLOR_MAIN)));
         }
         l[0].setText("  일  ");
         l[1].setText("  월  ");
@@ -59,6 +60,15 @@ public class Calendar extends JPanel {
         for(int i=0; i<=6; i++){
             weekPanel[i] = new JPanel(new BorderLayout());
             weekPanel[i].add(l[i], BorderLayout.WEST);
+            t[i] = new JPanel(new GridLayout(0, 1));
+            final int innerI = i;
+            System.out.println(day.get(i));
+            day.get(i).forEach(e -> {
+                JLabel lbl = new JLabel(e);
+                t[innerI].add(lbl);
+            });
+            t[i].setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+            t[i].setBorder(new LineBorder(new Color(Prop.COLOR_MAIN)));
             weekPanel[i].add(t[i], BorderLayout.CENTER);
             mainPanel.add(weekPanel[i]);
         }

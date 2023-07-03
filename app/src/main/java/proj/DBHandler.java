@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class DBHandler {
@@ -184,6 +186,21 @@ public class DBHandler {
         } catch (SQLException e) {
             System.err.println("checkPassword() SQLException: " + e.getMessage());
             return false;
+        }
+    }
+
+    public ArrayList<String> getSchedule(String dname, LocalDate date) {
+        ArrayList<String> schedule;
+        try {
+            ResultSet rs = executeQuery("select S_BODY from SCHEDULE where trunc(S_START)=to_date('" + date + "', 'YYYY-MM-DD')");
+            schedule = new ArrayList<>();
+            while (rs.next()) {
+                schedule.add(rs.getString(1));
+            }
+            return schedule;
+        } catch (SQLException e) {
+            System.err.println("getSchedule() 실패: " + e.getMessage());
+            return null;
         }
     }
 }
