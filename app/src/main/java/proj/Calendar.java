@@ -9,6 +9,7 @@ import javax.swing.JTable;
 public class Calendar extends JPanel {
     String weekList[] = {"일","월","화","수","목","금","토"};
     JButton lastweekButton, nextweekButton;
+    JPanel upPanel;
     JTable calendarTable;
     Calendar(){
         setLayout(new BorderLayout());
@@ -18,11 +19,11 @@ public class Calendar extends JPanel {
         for(int i=0; i<weekList.length;i++){
             
         }
-        calendarTable(weekList,null);
-        add(lastweekButton);
-        add(nextweekButton);
+        upPanel.setLayout(new BorderLayout());
+        upPanel.add(lastweekButton, BorderLayout.WEST);
+        upPanel.add(nextweekButton, BorderLayout.EAST);
 
-    }
-    private void calendarTable(String[] weekList2, Object object) {
+        add(BorderLayout.NORTH);
+    
     }
 }
