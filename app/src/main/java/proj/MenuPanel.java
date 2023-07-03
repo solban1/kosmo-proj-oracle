@@ -40,10 +40,10 @@ public class MenuPanel extends JPanel {
             getParent().remove(this);
         };
         calListener = e -> {
-            ((MainUI)SwingUtilities.getAncestorOfClass(JFrame.class, this)).change(new Calendar());
+            ((MainUI)SwingUtilities.getAncestorOfClass(MainUI.class, this)).change(new Calendar());
         };
         approvalListener = e -> {
-            ((MainUI)SwingUtilities.getAncestorOfClass(JFrame.class, this)).change(new BoxList());
+            ((MainUI)SwingUtilities.getAncestorOfClass(MainUI.class, this)).change(new ApprovalSubmenu());
         };
         boardListener = e -> {
             getParent().validate();
