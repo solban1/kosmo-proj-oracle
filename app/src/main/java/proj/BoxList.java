@@ -18,6 +18,7 @@ public class BoxList<T extends Component> extends JScrollPane {
     
     public BoxList() {
         super(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        getVerticalScrollBar().setUnitIncrement(16);
         boxPanel = new JPanel(null);
         boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
         //boxPanel = new JPanel(new GridLayout(0, 1));

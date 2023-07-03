@@ -10,9 +10,11 @@ import javax.swing.JPanel;
 public class ApprovalListItem extends JPanel {
     private JPanel leftPanel;
     private JPanel contentPanel;
+    private String text = "";
 
-    public ApprovalListItem() {
+    public ApprovalListItem(String text) {
         super(new BorderLayout());
+        this.text = text;
         
         initUI();
 
@@ -24,6 +26,7 @@ public class ApprovalListItem extends JPanel {
         add(leftPanel, BorderLayout.WEST);
         
         contentPanel = new JPanel(new GridLayout(2, 1));
+        contentPanel.add(new JLabel(text));
         add(contentPanel);
     }
 }
