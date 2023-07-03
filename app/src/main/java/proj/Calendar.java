@@ -1,29 +1,40 @@
 package proj;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 
 public class Calendar extends JPanel {
-    String weekList[] = {"일","월","화","수","목","금","토"};
     JButton lastweekButton, nextweekButton;
-    JPanel upPanel;
-    JTable calendarTable;
-    Calendar(){
-        setLayout(new BorderLayout());
+    JPanel upPanel,weekPanel, mainPanel;
+    JLabel[] l;
 
+    Calendar(){
         lastweekButton = new JButton("<-");
         nextweekButton = new JButton("->");
-        for(int i=0; i<weekList.length;i++){
-            
+        upPanel = new JPanel();
+        mainPanel = new JPanel();
+        weekPanel = new JPanel();
+        l = new JLabel[6];
+        weekPanel.setLayout(new BoxLayout(weekPanel, BoxLayout.Y_AXIS));
+        weekPanel.setBackground(new Color(Prop.COLOR_MAIN));
+        weekPanel.setForeground(Color.WHITE);
+
+        for(int i=0; i<6;i++){
+            l[i] = new JLabel();
+            weekPanel.add(l[i]);
         }
+        System.out.println(l);
         upPanel.setLayout(new BorderLayout());
         upPanel.add(lastweekButton, BorderLayout.WEST);
         upPanel.add(nextweekButton, BorderLayout.EAST);
 
-        add(BorderLayout.NORTH);
-    
+        add(upPanel, BorderLayout.NORTH);
+        add(weekPanel, BorderLayout.WEST);
+        add(mainPanel);
     }
 }
