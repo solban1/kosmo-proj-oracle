@@ -76,7 +76,6 @@ public class Calendar extends JPanel {
             weekPanel[i].add(l[i], BorderLayout.WEST);
             t[i] = new JPanel(new GridLayout(0, 1));
             final int innerI = i;
-            System.out.println(day.get(i));
             day.get(i).forEach(e -> {
                 lbl = new JLabel(e);
                 t[innerI].add(lbl);
