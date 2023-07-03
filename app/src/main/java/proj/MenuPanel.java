@@ -43,9 +43,7 @@ public class MenuPanel extends JPanel {
             ((MainUI)SwingUtilities.getAncestorOfClass(JFrame.class, this)).change(new Calendar());
         };
         approvalListener = e -> {
-
-            getParent().validate();
-            getParent().remove(this);
+            ((MainUI)SwingUtilities.getAncestorOfClass(JFrame.class, this)).change(new BoxList());
         };
         boardListener = e -> {
             getParent().validate();
