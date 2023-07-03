@@ -82,19 +82,13 @@ public class MainUI extends JFrame {
             
         };
         menuListener = e -> {
-            remove(currentPanel);
-            add(new MenuPanel());
-            validate();
+            change(new MenuPanel());
         };
         homeListener = e -> {
-            remove(currentPanel);
-            add(new Homepage());
-            validate();
+            change(new Homepage());
         };
         infoListener = e -> {
-            remove(currentPanel);
-            add(new InfoPanel());
-            validate();
+            change(new InfoPanel());
         };
         logoutListener = e -> {
             LogUI lu = new LogUI();
@@ -103,6 +97,12 @@ public class MainUI extends JFrame {
             setVisible(false);
         };
 
+    }
+
+    public void change(Component comp) {
+        remove(currentPanel);
+        add(comp);
+        validate();
     }
 
     private void setUI() {

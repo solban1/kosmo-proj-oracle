@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -34,13 +35,12 @@ public class MenuPanel extends JPanel {
 
     private void initListeners() {
         attendLogListener = e -> {
+            System.out.println(getParent());
             getParent().validate();
             getParent().remove(this);
         };
         calListener = e -> {
-            getParent().add(new Calendar());
-            getParent().validate();
-            getParent().remove(this);
+            ((MainUI)SwingUtilities.getAncestorOfClass(JFrame.class, this)).change(new Calendar());
         };
         approvalListener = e -> {
 
