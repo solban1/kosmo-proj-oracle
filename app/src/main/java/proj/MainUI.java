@@ -22,6 +22,7 @@ public class MainUI extends JFrame {
     private Component currentPanel;
 
     public MainUI() {
+        super("HelloWare");
         initListeners();
         
         topPanel = new JPanel();
@@ -105,7 +106,6 @@ public class MainUI extends JFrame {
     }
 
     private void setUI() {
-        setTitle("HelloWare");
         setSize(Prop.WIN_WIDTH, Prop.WIN_HEIGHT);
         setVisible(true);
         setLocationRelativeTo(null);
