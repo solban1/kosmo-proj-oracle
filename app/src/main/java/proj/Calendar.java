@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -16,8 +19,7 @@ public class Calendar extends JPanel {
     JPanel upPanel, mainPanel;
     JPanel[] weekPanel;
     JLabel[] l, t;
-    ArrayList<String> day;
-    ArrayList<ArrayList<String>> content;
+    ArrayList<ArrayList<JLabel>> day;
     Calendar(){
         lastweekButton = new JButton("<---"); //나중에 이미지로 대체
         nextweekButton = new JButton("--->"); //나중에 이미지로 대체
@@ -27,18 +29,17 @@ public class Calendar extends JPanel {
         l = new JLabel[7];
         t = new JLabel[7];
 
-        day = new ArrayList<String>();
-        day.add("일요일");
-        day.add("월");
-        day.add("화요일");
-        day.add("수요일");
-        day.add("목요일");
-        day.add("금요일");
-        day.add("토요일");
+        LocalDate sunday = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+        day = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            //ArrayList<JLabel> list = db.getSchedule(...);
+            
+            //day.add(list);
+        }
 
         for(int i=0; i<=6; i++){
             l[i] = new JLabel();
-            t[i] = new JLabel(day.get(i));
+            t[i] = day.get(i);
             l[i].setFont(new Font("맑은 고딕", Font.PLAIN, 15));
             t[i].setFont(new Font("맑은 고딕", Font.PLAIN, 12));
             l[i].setBorder(new LineBorder(new Color(Prop.COLOR_MAIN)));
