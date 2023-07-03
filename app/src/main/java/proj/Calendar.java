@@ -2,39 +2,61 @@ package proj;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 public class Calendar extends JPanel {
     JButton lastweekButton, nextweekButton;
-    JPanel upPanel,weekPanel, mainPanel;
-    JLabel[] l;
+    JPanel upPanel, mainPanel;
+    JPanel[] weekPanel;
+    JLabel[] l, t;
 
     Calendar(){
-        lastweekButton = new JButton("<-");
-        nextweekButton = new JButton("->");
+        lastweekButton = new JButton("<---"); //나중에 이미지로 대체
+        nextweekButton = new JButton("--->"); //나중에 이미지로 대체
         upPanel = new JPanel();
+        weekPanel = new JPanel[7];
         mainPanel = new JPanel();
-        weekPanel = new JPanel();
-        l = new JLabel[6];
-        weekPanel.setLayout(new BoxLayout(weekPanel, BoxLayout.Y_AXIS));
-        weekPanel.setBackground(new Color(Prop.COLOR_MAIN));
-        weekPanel.setForeground(Color.WHITE);
+        l = new JLabel[7];
+        t = new JLabel[7];
 
-        for(int i=0; i<6;i++){
+        for(int i=0; i<=6; i++){
             l[i] = new JLabel();
-            weekPanel.add(l[i]);
+            t[i] = new JLabel();
+            l[i].setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+            t[i].setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+            l[i].setBorder(new LineBorder(new Color(Prop.COLOR_MAIN)));
+            t[i].setBorder(new LineBorder(new Color(Prop.COLOR_MAIN)));
         }
-        System.out.println(l);
+        l[0].setText("  일  ");
+        l[1].setText("  월  ");
+        l[2].setText("  화  ");
+        l[3].setText("  수  ");
+        l[4].setText("  목  ");
+        l[5].setText("  금  ");
+        l[6].setText("  토  ");
+
         upPanel.setLayout(new BorderLayout());
         upPanel.add(lastweekButton, BorderLayout.WEST);
         upPanel.add(nextweekButton, BorderLayout.EAST);
+        for(int i=0; i<=6; i++){
+            weekPanel[i] = new JPanel(new BorderLayout());
+            weekPanel[i].add(l[i], BorderLayout.WEST);
+            weekPanel[i].add(t[i], BorderLayout.CENTER);
+            mainPanel.add(weekPanel[i]);
+        }
 
+        mainPanel.setLayout(new GridLayout(7,1));
+        mainPanel.setBackground(new Color(Prop.COLOR_MAIN));
+        mainPanel.setForeground(Color.WHITE);
+
+        setLayout(new BorderLayout());
         add(upPanel, BorderLayout.NORTH);
-        add(weekPanel, BorderLayout.WEST);
-        add(mainPanel);
+        add(mainPanel, BorderLayout.CENTER);
     }
 }
