@@ -85,6 +85,15 @@ public class DBHandler {
             return null;
         }
     }
+
+    public ResultSet executeSelectAttend(String ename) {
+        try {
+            return executeQuery("select A_START, A_END from ATTEND where ENAME='" + ename + "'");
+        } catch (SQLException e) {
+            System.err.println("executeSelectAttend() 실패: " + e);
+            return null;
+        }
+    }
     
     /**
      * 최근 조회된 {@code ResultSet}에 대한 컬럼명의 {@code Vector}를 가져옴.
@@ -189,6 +198,13 @@ public class DBHandler {
         }
     }
 
+    /**
+     * 특정인, 특정일의 일정을 ArrayList의 형태로 가져옴
+     * 
+     * @param dname
+     * @param date
+     * @return
+     */
     public ArrayList<String> getSchedule(String dname, LocalDate date) {
         ArrayList<String> schedule;
         try {
