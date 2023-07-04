@@ -108,7 +108,7 @@ public class Homepage extends JPanel {
 
         CalendarButton.setBorderPainted(false);
         downb2.setBorderPainted(false);
-        CalendarButton.setBorderPainted(false);
+        downb3.setBorderPainted(false);
         downb4.setBorderPainted(false);
 
         workButton.setFont(new Font("맑은고딕", Font.BOLD, 20));
