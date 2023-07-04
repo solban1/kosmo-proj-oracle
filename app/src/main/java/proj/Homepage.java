@@ -155,7 +155,7 @@ public class Homepage extends JPanel {
             if (wbtn.getText() == "출근") {
 
                 System.out.println("출근버튼 클릭");
-                /*
+                /* 
                  * JOptionPane.showConfirmDialog(null, "출근하시겠습니까?", "출근",
                  * JOptionPane.YES_NO_OPTION,
                  * JOptionPane.INFORMATION_MESSAGE, icon1);
