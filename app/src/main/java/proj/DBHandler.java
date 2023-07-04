@@ -88,7 +88,7 @@ public class DBHandler {
 
     public ResultSet executeSelectAttend(String ename) {
         try {
-            return executeQuery("select A_START, A_END from ATTEND where ENAME='" + ename + "'");
+            return executeQuery("select A_START, A_END from ATTEND where EMPNO=(select EMPNO from EMP where ENAME='" + ename + "')");
         } catch (SQLException e) {
             System.err.println("executeSelectAttend() 실패: " + e);
             return null;
