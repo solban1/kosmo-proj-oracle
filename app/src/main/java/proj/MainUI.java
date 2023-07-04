@@ -7,34 +7,50 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class MainUI extends JFrame {
     private JPanel topPanel, bottomPanel, dummyPanel, dummyPanel2;
-    private JLabel titleLbl;
+    private JLabel titleLbl, titleTime, dummyLbl;
     private HashMap<String, JButton> bottomBtns;
     private ActionListener attendListener, menuListener, homeListener, infoListener, logoutListener;
     private Component currentPanel;
+    private String formattedTime;
 
     public MainUI() {
         super("HelloWare");
         initListeners();
-        
+                
         topPanel = new JPanel();
         topPanel.setBackground(new Color(Prop.COLOR_MAIN));
         bottomPanel = new JPanel(new GridLayout(1, 5));
         add(topPanel, BorderLayout.NORTH);
         add(bottomPanel, BorderLayout.SOUTH);
 
-        titleLbl = new JLabel("Main");
+        Date date = new Date();
+        SimpleDateFormat simpl = new SimpleDateFormat("aaa hh:mm:ss");
+        String s1 = simpl.format(date);
+        titleLbl = new JLabel("Main", SwingConstants.CENTER);
         titleLbl.setFont(new Font("Malgun Gothic", Font.BOLD, 24));
         titleLbl.setForeground(Color.WHITE);
+        titleTime = new JLabel(s1, SwingConstants.CENTER);
+        titleTime.setFont(new Font("Malgun Gothic", Font.BOLD, 18));
+        titleTime.setForeground(Color.WHITE);
+        dummyLbl = new JLabel();
+        topPanel.setLayout(new GridLayout(1,3));
+        topPanel.add(dummyLbl);
         topPanel.add(titleLbl);
+        topPanel.add(titleTime);
 
         bottomBtns = new HashMap<>(7);
         bottomBtns.put("근태", new JButton("근태"));
@@ -67,6 +83,22 @@ public class MainUI extends JFrame {
         dummyPanel2.add(new JLabel("dummyPanel2"));
 
         setUI();
+        timer();
+    }
+    public void timer(){
+        //titleTime = new JLabel();
+        Timer timer = new Timer();
+
+        TimerTask task = new TimerTask(){
+            @Override
+            public void run(){
+                Date date1 = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("aaa hh:mm:ss");
+                formattedTime = sdf.format(date1);
+                titleTime.setText(formattedTime);
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 50);
     }
 
     @Override

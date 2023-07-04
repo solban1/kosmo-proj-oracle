@@ -11,9 +11,12 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 
 public class Calendar extends JPanel {
@@ -26,10 +29,18 @@ public class Calendar extends JPanel {
     ArrayList<ArrayList<String>> day;
     int nextClick;
     Calendar(){
-        lastweekButton = new JButton("<---"); //나중에 이미지로 대체
-        nextweekButton = new JButton("--->"); //나중에 이미지로 대체
+        lastweekButton = new JButton(new ImageIcon("res/arrow_back.png"));
+        lastweekButton.setBackground(new Color(Prop.COLOR_MAIN));
+        lastweekButton.setBorder(new BevelBorder(BevelBorder.RAISED));
+        //lastweekButton.setBorderPainted(false);
+        lastweekButton.setFocusPainted(false);
+        nextweekButton = new JButton(new ImageIcon("res/arrow_forward.png"));
+        nextweekButton.setBackground(new Color(Prop.COLOR_MAIN));
+        nextweekButton.setBorder(new BevelBorder(BevelBorder.RAISED));
+        //nextweekButton.setBorderPainted(false);
+        nextweekButton.setFocusPainted(false);
         upPanel = new JPanel();
-        up = new JLabel();
+        up = new JLabel(" ", SwingConstants.CENTER);
         weekPanel = new JPanel[7];
         mainPanel = new JPanel();
         l = new JLabel[7];
@@ -85,7 +96,7 @@ public class Calendar extends JPanel {
             weekPanel[i].add(t[i], BorderLayout.CENTER);
             mainPanel.add(weekPanel[i]);
         }
-        up.setText("                        "+sunday+" ~ "+sunday.plusDays(6));
+        up.setText(sunday+" ~ "+sunday.plusDays(6));
         upPanel.setLayout(new BorderLayout());
         upPanel.add(lastweekButton, BorderLayout.WEST);
         upPanel.add(up);
