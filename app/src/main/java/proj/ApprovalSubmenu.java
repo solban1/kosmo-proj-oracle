@@ -16,7 +16,7 @@ public class ApprovalSubmenu extends JPanel {
     private JButton listButton;
     private ActionListener newListener;
     private ActionListener listListener;
-    
+
     public ApprovalSubmenu() {
         super(new GridLayout(2, 1));
         initListeners();
@@ -24,13 +24,21 @@ public class ApprovalSubmenu extends JPanel {
     }
 
     private void initListeners() {
+        newListener = e -> {
+            // ((MainUI)SwingUtilities.getAncestorOfClass(MainUI.class, this)).change(new
+            // ApprovalNew());
+            ((MainUI) SwingUtilities.getAncestorOfClass(MainUI.class, this)).change(new ApprovalNew());
+
+        };
+
         listListener = e -> {
-            ((MainUI)SwingUtilities.getAncestorOfClass(MainUI.class, this)).change(new ApprovalList());
+            ((MainUI) SwingUtilities.getAncestorOfClass(MainUI.class, this)).change(new ApprovalList());
         };
     }
 
     private void initUI() {
         newButton = new JButton("기안", new ImageIcon("res/board_new.png"));
+        newButton.addActionListener(newListener);
         listButton = new JButton("결재대기", new ImageIcon("res/board_pending.png"));
         listButton.addActionListener(listListener);
         List.of(newButton, listButton).forEach(btn -> {
