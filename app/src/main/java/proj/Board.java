@@ -7,7 +7,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,12 +24,11 @@ public class Board extends JPanel{
     JLabel dummy, boardTitle, numLabel, titleLabel, wriLabel, dateLabel; //upPanel title과 현재 날짜 출력하기위한 Label
     JPanel up, boardAll, boardIndex; //boardIndex t[] 의 글번호 제목 작성자 등록일 등 표시하기 위한 Panel
     JPanel[] boardPanels; //main 위치 글번호 + 제목 작성자 등록일
-    JLabel[] boardBody;
     JScrollPane js; // tableModel.addRow(new Object[]{"SCROLLBAR_AS_NEEDED"});
     String formattedTime;
 
-    GridBagLayout[] gbLayouts;
-    ArrayList<ArrayList<String>> bBody;
+    JLabel boardBody;
+    Vector<Vector<String>> bBody;
     Board(){
         newBoard = new JButton("글쓰기",new ImageIcon("res/compose.png"));
         newBoard.setFont(new Font("맑은 고딕", Font.BOLD, 13));
@@ -82,22 +81,62 @@ public class Board extends JPanel{
         boardAll = new JPanel(new BorderLayout());
         boardAll.add(boardIndex, BorderLayout.NORTH);
 
-        //validate();
-        //mainPanel();
+        validate();
+        mainPanel();
 
         setLayout(new BorderLayout());
         add(up, BorderLayout.NORTH);
         add(boardAll);
     }
     void mainPanel(){
-        bBody = new ArrayList<>();
-        boardBody = new JLabel[bBody.size()];
+        bBody = new Vector<>();
+        /*Vector<String> row1 = new Vector<>();
+        row1.add("1");
+        row1.add("2");
+        row1.add("3");
+        row1.add("4");
+        
+        Vector<String> row2 = new Vector<>();
+        row2.add("5");
+        row2.add("6");
+        row2.add("7");
+        row2.add("8");
 
-        for(int i=0; i<=bBody.size(); i++){
-            gbLayouts[i] = new GridBagLayout();
-            boardPanels[i] = new JPanel();
-            boardPanels[i].setLayout(gbLayouts[i]);
-            boardBody[i] = new JLabel();
+        bBody.add(row1);
+        bBody.add(row2);*/
+
+        DBHandler dh = new DBHandler();
+        dh.executeSelect("BOARD order by B_NO desc");
+        bBody = dh.getData();
+
+        for(int i=1; i<=bBody.size(); i++){
+            JLabel numLbl = new JLabel(bBody.get(i-1).get(0), SwingConstants.CENTER);
+            JLabel bodyLbl = new JLabel(bBody.get(i-1).get(2), SwingConstants.CENTER);
+            JLabel wrtLbl = new JLabel(bBody.get(i-1).get(1), SwingConstants.CENTER);
+            JLabel dateLbl = new JLabel(bBody.get(i-1).get(3), SwingConstants.CENTER);
+            numLbl.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+            bodyLbl.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+            wrtLbl.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+            dateLbl.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+
+            GridBagConstraints constraints = new GridBagConstraints();
+            constraints.fill = GridBagConstraints.HORIZONTAL; 
+            constraints.weightx = 1;
+
+            constraints.gridx = 0;
+            constraints.gridy = i;
+            boardIndex.add(numLbl, constraints);
+            constraints.gridx = 1;
+            constraints.gridy = i;
+            boardIndex.add(bodyLbl, constraints);
+            constraints.gridx = 2;
+            constraints.gridy = i;
+            boardIndex.add(wrtLbl, constraints);
+            constraints.gridx = 3;
+            constraints.gridy = i;
+            boardIndex.add(dateLbl, constraints);
+            boardIndex.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+            boardIndex.setBackground(Color.WHITE);
 
         }
     }

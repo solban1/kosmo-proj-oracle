@@ -37,6 +37,7 @@ public class InfoPanel extends JPanel{
 
         add(dNameBox,BorderLayout.NORTH);
         add(infoScroll);
+        System.out.println(rowData);
     }
 }
 //executeSelect, getColumnData, getData 
