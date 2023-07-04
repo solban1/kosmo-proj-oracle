@@ -97,6 +97,12 @@ public class Calendar extends JPanel {
         add(mainPanel);
         validate();
     }
+    public static Calendar getInstance() {
+        return null;
+    }
+    public Object getTime() {
+        return null;
+    }
 }
 class lastweekButtonListener implements ActionListener{
     Calendar cal;
