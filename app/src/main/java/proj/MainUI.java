@@ -79,7 +79,7 @@ public class MainUI extends JFrame {
 
     private void initListeners() {
         attendListener = e -> {
-            
+            change(new AttendanceRecord());
         };
         menuListener = e -> {
             change(new MenuPanel());
