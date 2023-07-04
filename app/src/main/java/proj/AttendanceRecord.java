@@ -34,8 +34,8 @@ public class AttendanceRecord extends JPanel {
         String s = simpl.format(date);
 
         JPanel jPanel = new JPanel();
-        JLabel titleL = new JLabel("                    Today");
-        JLabel subtitleL = new JLabel("                   <" + s + ">");
+        JLabel titleL = new JLabel("                           Today");
+        JLabel subtitleL = new JLabel("                        <" + s + ">");
         
         jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
 
@@ -57,7 +57,8 @@ public class AttendanceRecord extends JPanel {
         Vector<Vector<String>> data = db.getData();
         for (Vector<String> row : data) {
             DateTimeFormatter f = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
-            row.add(String.valueOf(ChronoUnit.HOURS.between(LocalDateTime.parse(row.get(0), f), LocalDateTime.parse(row.get(1), f))));
+            long minutes = ChronoUnit.MINUTES.between(LocalDateTime.parse(row.get(0), f), LocalDateTime.parse(row.get(1), f));
+            row.add(minutes / 60 + "시간 " + minutes % 60 + "분");
             row.add(row.get(1));
         }
         System.out.println(columnData);
