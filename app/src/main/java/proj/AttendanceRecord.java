@@ -48,7 +48,7 @@ public class AttendanceRecord extends JPanel {
         // 테이블 추가
         
         DBHandler db = new DBHandler();
-        db.executeSelectAttend("이현동");
+        db.executeSelectAttend(Prop.ename);
         Vector<String> columnData = db.getColumnData();
         Vector<String> columnName = new Vector<String>();
         columnName.add("출근시간");
