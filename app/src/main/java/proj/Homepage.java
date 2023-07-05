@@ -208,9 +208,9 @@ public class Homepage extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            UIManager.put("OptionPane.background", new Color(Prop.COLOR_MAIN)); // UIOPTION 색상
+            /*UIManager.put("OptionPane.background", new Color(Prop.COLOR_MAIN)); // UIOPTION 색상
             UIManager.put("Panel.background", new Color(Prop.COLOR_MAIN));
-            UIManager.put("Button.background", new Color(194, 177, 227));
+            UIManager.put("Button.background", new Color(194, 177, 227));*/
 
             System.out.println("로그아웃 버튼 클릭");
             int i = JOptionPane.showConfirmDialog(null, "로그아웃하시겠습니까?", "로그아웃", JOptionPane.YES_NO_OPTION,
