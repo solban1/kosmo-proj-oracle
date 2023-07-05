@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -18,11 +19,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
-
-import oracle.security.o3logon.b;
 
 public class Board extends JPanel{
     JButton newBoard; //upPanel 글쓰기
@@ -33,7 +33,7 @@ public class Board extends JPanel{
     String formattedTime;
 
     JLabel boardBody;
-    Vector<Vector<String>> bBody;
+    Vector<Vector<String>> bBodyList;
     Board(){
         newBoard = new JButton("글쓰기",new ImageIcon("res/compose.png"));
         newBoard.setFont(new Font("맑은 고딕", Font.BOLD, 13));
@@ -51,6 +51,7 @@ public class Board extends JPanel{
         up.add(dummy);
         up.add(boardTitle);
         up.add(newBoard);
+        newBoard.addActionListener(new NewBoardListener(this));
         
         GridBagLayout gbLayout = new GridBagLayout();
         boardIndex = new JPanel();
@@ -93,19 +94,18 @@ public class Board extends JPanel{
         add(up, BorderLayout.NORTH);
         add(boardAll);
 
-        newBoard.addActionListener(new NewBoardListener(this));
     }
     void mainPanel(){
-        bBody = new Vector<>();
+        bBodyList = new Vector<>();
         DBHandler dh = new DBHandler();
         dh.executeSelectColumns("BOARD natural join EMP order by B_NO desc", "B_NO", "B_BODY", "ENAME", "WDATE");
-        bBody = dh.getData();
+        bBodyList = dh.getData();
 
-        for(int i=1; i<=bBody.size(); i++){
-            JLabel numLbl = new JLabel(bBody.get(i-1).get(0), SwingConstants.CENTER);
-            JLabel bodyLbl = new JLabel(bBody.get(i-1).get(1), SwingConstants.CENTER);
-            JLabel wrtLbl = new JLabel(bBody.get(i-1).get(2), SwingConstants.CENTER);
-            JLabel dateLbl = new JLabel(bBody.get(i-1).get(3), SwingConstants.CENTER);
+        for(int i=1; i<=bBodyList.size(); i++){
+            JLabel numLbl = new JLabel(bBodyList.get(i-1).get(0), SwingConstants.CENTER);
+            JLabel bodyLbl = new JLabel(bBodyList.get(i-1).get(1), SwingConstants.CENTER);
+            JLabel wrtLbl = new JLabel(bBodyList.get(i-1).get(2), SwingConstants.CENTER);
+            JLabel dateLbl = new JLabel(bBodyList.get(i-1).get(3), SwingConstants.CENTER);
             numLbl.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
             bodyLbl.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
             wrtLbl.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
@@ -134,13 +134,18 @@ public class Board extends JPanel{
 }
 class NewBoardListener implements ActionListener{
     Board bod;
-    String b_BODY;
+    String b_Body;
+    DBHandler dh;
     NewBoardListener(Board bod){
         this.bod = bod;
     }
     @Override
     public void actionPerformed(ActionEvent ae){
-        b_BODY = JOptionPane.showInputDialog(null, "글쓰기", "새 글");
-        System.out.println(b_BODY);
+        bod.mainPanel();
+        b_Body = JOptionPane.showInputDialog(null, "글쓰기", "새 글");
+        //System.out.println(b_BODY);
+        dh = new DBHandler();
+        dh.executeUpdate("insert into BOARD(EMPNO, B_BODY, WDATE) VALUES("+Prop.empno+", '"+b_Body+"', SYSDATE)"); //VALUES('내용내용 hihi', SYSDATE);
+        ((MainUI)SwingUtilities.getAncestorOfClass(MainUI.class, bod)).change(new Board());
     }
 }
