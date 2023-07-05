@@ -34,17 +34,32 @@ public class DBHandler {
         this("EMP");
     }
 
-    public ResultSet executeQuery(String sql) throws SQLException {
-        currentRs = stmt.executeQuery(sql);
+    public ResultSet executeQuery(String sql) {
+        try {
+            currentRs = stmt.executeQuery(sql);
+        } catch (SQLException e) {
+            System.err.println("executeQuery() SQLException: " + e.getMessage());
+            return null;
+        }
         return currentRs;
     }
 
-    public int executeUpdate(String sql) throws SQLException {
-        return stmt.executeUpdate(sql);
+    public int executeUpdate(String sql) {
+        try {
+            return stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.err.println("executeUpdate() SQLException: " + e.getMessage());
+            return -1;
+        }
     }
 
-    public boolean execute(String sql) throws SQLException {
-        return stmt.execute(sql);
+    public boolean execute(String sql) {
+        try {
+            return stmt.execute(sql);
+        } catch (SQLException e) {
+            System.err.println("execute() SQLException: " + e.getMessage());
+            return false;
+        }
     }
 
     /**
@@ -54,12 +69,7 @@ public class DBHandler {
      * @return {@code ResultSet}
      */
     public ResultSet executeSelect(String localTname) {
-        try {
-            return executeQuery("select * from " + localTname);
-        } catch (SQLException e) {
-            System.err.println("executeSelect() SQLException: " + e);
-            return null;
-        }
+        return executeQuery("select * from " + localTname);
     }
 
     /**
@@ -79,22 +89,12 @@ public class DBHandler {
      * @return ResultSet
      */
     public ResultSet executeSelectColumns(String localTname, String... columns) {
-        try {
-            return executeQuery("select " + String.join(", ", columns) + " from " + localTname);
-        } catch (SQLException e) {
-            System.err.println("executeSelect() SQLException: " + e);
-            return null;
-        }
+        return executeQuery("select " + String.join(", ", columns) + " from " + localTname);
     }
 
     public ResultSet executeSelectAttend(String ename) {
-        try {
-            return executeQuery("select A_START, A_END from ATTEND where EMPNO=(select EMPNO from EMP where ENAME='"
-                    + ename + "')");
-        } catch (SQLException e) {
-            System.err.println("executeSelectAttend() SQLException: " + e);
-            return null;
-        }
+        return executeQuery(
+                "select A_START, A_END from ATTEND where EMPNO=(select EMPNO from EMP where ENAME='" + ename + "')");
     }
 
     /**
@@ -211,29 +211,17 @@ public class DBHandler {
     }
 
     public String getEnameFromEmail(String email) {
-        try {
-            executeQuery("select ENAME from EMP where EMAIL='" + email + "'");
-        } catch (SQLException e) {
-            System.err.println("getEnameFromEmail() SQLException: " + e);
-        }
+        executeQuery("select ENAME from EMP where EMAIL='" + email + "'");
         return getFirstData();
     }
 
     public String getDnameFromEmail(String email) {
-        try {
-            executeQuery("select DNAME from EMP natural join DEPT where EMAIL='" + email + "'");
-        } catch (SQLException e) {
-            System.err.println("getDnameFromEmail() SQLException: " + e);
-        }
+        executeQuery("select DNAME from EMP natural join DEPT where EMAIL='" + email + "'");
         return getFirstData();
     }
 
     public String getEmpnoFromEmail(String email) {
-        try {
-            executeQuery("select EMPNO from EMP where EMAIL='" + email + "'");
-        } catch (SQLException e) {
-            System.err.println("getEmpnoFromEmail() SQLException: " + e);
-        }
+        executeQuery("select EMPNO from EMP where EMAIL='" + email + "'");
         return getFirstData();
     }
 
