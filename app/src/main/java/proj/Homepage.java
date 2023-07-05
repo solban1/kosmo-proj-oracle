@@ -8,7 +8,12 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.Vector;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -153,8 +158,15 @@ public class Homepage extends JPanel {
             Date date1 = new Date();
             SimpleDateFormat simpl = new SimpleDateFormat("yy.MM.dd hh:mm aaa");
             String s1 = simpl.format(date1);
-            System.out.println(date1);
+   
 
+            DBHandler db = new DBHandler();    
+            db.executeSelectAttend(Prop.ename);
+           
+    
+        
+       
+  
             if (wbtn.getText().equals("출근"))
                 wbtn.setText("퇴근");
 
@@ -183,7 +195,7 @@ public class Homepage extends JPanel {
             }
 
             logButton.setText(s1);
-
+      
         }
     }
 
