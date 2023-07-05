@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
@@ -86,13 +87,14 @@ public class Board extends JPanel{
         
         boardAll = new JPanel(new BorderLayout());
         boardAll.add(boardIndex, BorderLayout.NORTH);
+        js = new JScrollPane(boardAll) ;
 
         validate();
         mainPanel();
 
         setLayout(new BorderLayout());
         add(up, BorderLayout.NORTH);
-        add(boardAll);
+        add(js);
 
     }
     void mainPanel(){
