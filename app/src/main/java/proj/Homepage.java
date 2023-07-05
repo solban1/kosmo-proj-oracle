@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 import javax.swing.text.html.HTML;
 
 
@@ -61,6 +62,7 @@ public class Homepage extends JPanel {
         pp3.add(downb2);
         pp3.add(downb3);
         pp3.add(downb4);
+        
         JPanel pp2 = new JPanel();
         setLayout(new BorderLayout());
         pp2.setLayout(new GridLayout(1, 0));
@@ -97,13 +99,14 @@ public class Homepage extends JPanel {
         workButton.addActionListener(new workbtnActionListener());
         CalendarButton.addActionListener(new HandlerCalButton(this));
 
-        ImageIcon icon = new ImageIcon("res/clerk2.jpg");
+        ImageIcon icon = new ImageIcon("res/clerk3.jpg");
         JPanel sP = new JPanel();
-        JLabel imgLabel = new JLabel(icon,SwingConstants.CENTER);
+        JLabel imgLabel = new JLabel(icon);
 
         sP.add(imgLabel);
-        pp1.add(sP,BorderLayout.CENTER);
         
+        pp1.add(sP,BorderLayout.CENTER);
+        sP.setBackground(new Color(142,202,210));
         
         /*sP.setLayout(new GridLayout(1, 3)); // 수정 지우기 삭제 버튼
         sP.add(bS1);
