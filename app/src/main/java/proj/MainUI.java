@@ -18,6 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 
 public class MainUI extends JFrame {
     private JPanel topPanel, bottomPanel, dummyPanel, dummyPanel2;
@@ -30,7 +32,8 @@ public class MainUI extends JFrame {
     public MainUI() {
         super("HelloWare");
         initListeners();
-                
+        
+        UIManager.put("Label.font", new FontUIResource("Malgun Gothic", Font.PLAIN, 11));
         topPanel = new JPanel();
         topPanel.setBackground(new Color(Prop.COLOR_MAIN));
         bottomPanel = new JPanel(new GridLayout(1, 5));

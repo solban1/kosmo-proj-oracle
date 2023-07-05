@@ -23,8 +23,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.plaf.FontUIResource;
 
 public class LogUI extends JFrame {
     private Container cp;
@@ -40,6 +42,7 @@ public class LogUI extends JFrame {
 
     }
     void init(){
+        UIManager.put("Label.font", new FontUIResource("Malgun Gothic", Font.PLAIN, 11));
         upPanel = new JPanel();
         northL1 = new JLabel("Welcome");
         northL1.setFont(new Font("맑은고딕", Font.BOLD, 24)); //글씨체 변경 맑은고딕,굵게, 18
