@@ -169,7 +169,7 @@ public class DBHandler {
                 System.err.println("getFirstRow() 실패");
                 return null;
             }
-            if (currentRs.isBeforeFirst() && !currentRs.next()) {
+            if (!currentRs.next()) {
                 return null;
             }
 
@@ -196,7 +196,7 @@ public class DBHandler {
                 System.err.println("getFirstData() 실패");
                 return null;
             }
-            if (currentRs.isBeforeFirst() && !currentRs.next()) {
+            if (!currentRs.next()) {
                 return null;
             }
 
