@@ -143,7 +143,4 @@ class NewBoardListener implements ActionListener{
         b_BODY = JOptionPane.showInputDialog(null, "글쓰기", "새 글");
         System.out.println(b_BODY);
     }
-    void newBoardWrite(){
-        b_BODY
-    }
 }
