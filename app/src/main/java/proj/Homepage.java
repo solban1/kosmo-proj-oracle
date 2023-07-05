@@ -7,14 +7,18 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
-import javax.swing.Action;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -56,11 +60,14 @@ public class Homepage extends JPanel {
         pp3.add(downb2);
         pp3.add(downb3);
         pp3.add(downb4);
-
         JPanel pp2 = new JPanel();
         setLayout(new BorderLayout());
-        pp2.setLayout(new GridLayout(1, 3));
-        JButton upb = new JButton("사원 이름,부서번호");
+        pp2.setLayout(new GridLayout(1, 0));
+        
+        
+        JButton upb = new JButton(Prop.ename + "님 환영합니다" + (Prop.dname));
+        
+        
 
         pp2.add(upb);
 
@@ -87,11 +94,18 @@ public class Homepage extends JPanel {
         workButton.addActionListener(new workbtnActionListener());
         CalendarButton.addActionListener(new HandlerCalButton(this));
 
+        ImageIcon icon = new ImageIcon("res/clerk2.jpg");
         JPanel sP = new JPanel();
-        sP.setLayout(new GridLayout(1, 3)); // 수정 지우기 삭제 버튼
+        JLabel imgLabel = new JLabel(icon,SwingConstants.CENTER);
+
+        sP.add(imgLabel);
+        pp1.add(sP,BorderLayout.CENTER);
+        
+        
+        /*sP.setLayout(new GridLayout(1, 3)); // 수정 지우기 삭제 버튼
         sP.add(bS1);
         sP.add(bS2);
-        sP.add(bS3);
+        sP.add(bS3);*/
 
         pp2.add(pp3, BorderLayout.NORTH);
         pp2.add(pp1, BorderLayout.SOUTH);
