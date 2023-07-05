@@ -61,6 +61,7 @@ public class DBHandler {
             return null;
         }
     }
+
     /**
      * 최근 select된 테이블의 전체 열에 대한 select 구문을 돌림.
      * 
@@ -74,7 +75,7 @@ public class DBHandler {
      * 특정 열에 대한 select 구문을 돌림.
      * 
      * @param localTname 테이블명
-     * @param columns 조회할 컬럼명
+     * @param columns    조회할 컬럼명
      * @return ResultSet
      */
     public ResultSet executeSelectColumns(String localTname, String... columns) {
@@ -88,13 +89,14 @@ public class DBHandler {
 
     public ResultSet executeSelectAttend(String ename) {
         try {
-            return executeQuery("select A_START, A_END from ATTEND where EMPNO=(select EMPNO from EMP where ENAME='" + ename + "')");
+            return executeQuery("select A_START, A_END from ATTEND where EMPNO=(select EMPNO from EMP where ENAME='"
+                    + ename + "')");
         } catch (SQLException e) {
-            System.err.println("executeSelectAttend() 실패: " + e);
+            System.err.println("executeSelectAttend() SQLException: " + e);
             return null;
         }
     }
-    
+
     /**
      * 최근 조회된 {@code ResultSet}에 대한 컬럼명의 {@code Vector}를 가져옴.
      * 
@@ -146,13 +148,84 @@ public class DBHandler {
                 }
                 data.add(row);
             }
-            
+
         } catch (SQLException e) {
             System.err.println("getColumnData() SQLException: " + e.getMessage());
             return null;
         }
 
         return data;
+    }
+
+    /**
+     * 최근 조회된 {@code ResultSet}에 대한 레코드의 첫 번째 열을 {@code Vector}의 형태로 가져옴.
+     * 
+     * @return 첫 번째 열의 {@code Vector}
+     */
+    public Vector<String> getFirstRow() {
+        Vector<String> row;
+        try {
+            if (currentRs == null || currentRs.isClosed()) {
+                System.err.println("getFirstRow() 실패");
+                return null;
+            }
+            if (currentRs.isBeforeFirst() && !currentRs.next()) {
+                return null;
+            }
+
+            final int cols = currentRs.getMetaData().getColumnCount();
+            row = new Vector<>();
+            for (int i = 1; i <= cols; i++) {
+                row.add(currentRs.getString(i));
+            }
+            return row;
+        } catch (SQLException e) {
+            System.err.println("getFirstRow() SQLException: " + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * 최근 조회된 {@code ResultSet}에 대한 레코드의 첫 번째 열, 첫 번째 컬럼의 데이터를 가져옴.
+     * 
+     * @return 단일 데이터
+     */
+    public String getFirstData() {
+        try {
+            if (currentRs == null || currentRs.isClosed()) {
+                System.err.println("getFirstData() 실패");
+                return null;
+            }
+            if (currentRs.isBeforeFirst() && !currentRs.next()) {
+                return null;
+            }
+
+            if (currentRs.getMetaData().getColumnCount() < 1) {
+                return null;
+            }
+            return currentRs.getString(1);
+        } catch (SQLException e) {
+            System.err.println("getFirstData() SQLException: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public String getEnameFromEmail(String email) {
+        try {
+            executeQuery("select ENAME from EMP where EMAIL='" + email + "'");
+        } catch (SQLException e) {
+            System.err.println("getEnameFromEmail() SQLException: " + e);
+        }
+        return getFirstData();
+    }
+
+    public String getDnameFromEmail(String email) {
+        try {
+            executeQuery("select DNAME from EMP natural join DEPT where EMAIL='" + email + "'");
+        } catch (SQLException e) {
+            System.err.println("getDnameFromEmail() SQLException: " + e);
+        }
+        return getFirstData();
     }
 
     /**
@@ -181,7 +254,7 @@ public class DBHandler {
      * 이메일과 패스워드가 일치하는지 확인함.
      * 
      * @param email 확인할 회원의 이메일
-     * @param pw 확인할 회원의 패스워드
+     * @param pw    확인할 회원의 패스워드
      * @return 일치하면 {@code true}, 일치하지 않거나 이메일이 없으면 {@code false}
      */
     public boolean checkPassword(String email, String pw) {
@@ -208,14 +281,15 @@ public class DBHandler {
     public ArrayList<String> getSchedule(String dname, LocalDate date) {
         ArrayList<String> schedule;
         try {
-            ResultSet rs = executeQuery("select S_BODY from SCHEDULE where trunc(S_START)=to_date('" + date + "', 'YYYY-MM-DD')");
+            ResultSet rs = executeQuery(
+                    "select S_BODY from SCHEDULE where trunc(S_START)=to_date('" + date + "', 'YYYY-MM-DD')");
             schedule = new ArrayList<>();
             while (rs.next()) {
                 schedule.add(rs.getString(1));
             }
             return schedule;
         } catch (SQLException e) {
-            System.err.println("getSchedule() 실패: " + e.getMessage());
+            System.err.println("getSchedule() SQLException: " + e.getMessage());
             return null;
         }
     }

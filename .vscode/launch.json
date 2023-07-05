@@ -16,7 +16,7 @@
             "name": "LogUI",
             "request": "launch",
             "mainClass": "proj.LogUI",
-            "projectName": "kosmo-proj-oracle"
+            "projectName": "app"
         },
         {
             "type": "java",
