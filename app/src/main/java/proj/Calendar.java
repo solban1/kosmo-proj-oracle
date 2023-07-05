@@ -67,8 +67,8 @@ public class Calendar extends JPanel {
         add(upPanel, BorderLayout.NORTH);
         add(mainPanel, BorderLayout.CENTER);
 
-        lastweekButton.addActionListener(new lastweekButtonListener(this));
-        nextweekButton.addActionListener(new nextweekButtonListener(this));
+        lastweekButton.addActionListener(new LastweekButtonListener(this));
+        nextweekButton.addActionListener(new NextweekButtonListener(this));
     }
     void mainPanel(){
         LocalDate sunday = LocalDate.now().plusWeeks(nextClick).with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
@@ -115,9 +115,9 @@ public class Calendar extends JPanel {
         return null;
     }
 }
-class lastweekButtonListener implements ActionListener{
+class LastweekButtonListener implements ActionListener{
     Calendar cal;
-    lastweekButtonListener(Calendar cal){
+    LastweekButtonListener(Calendar cal){
         this.cal = cal;
     }
     @Override
@@ -126,9 +126,9 @@ class lastweekButtonListener implements ActionListener{
         cal.mainPanel();
     }
 }
-class nextweekButtonListener implements ActionListener{
+class NextweekButtonListener implements ActionListener{
     Calendar cal;
-    nextweekButtonListener(Calendar cal){
+    NextweekButtonListener(Calendar cal){
         this.cal = cal;
     }
     @Override

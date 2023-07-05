@@ -7,17 +7,22 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
+
+import oracle.security.o3logon.b;
 
 public class Board extends JPanel{
     JButton newBoard; //upPanel 글쓰기
@@ -87,26 +92,13 @@ public class Board extends JPanel{
         setLayout(new BorderLayout());
         add(up, BorderLayout.NORTH);
         add(boardAll);
+
+        newBoard.addActionListener(new NewBoardListener(this));
     }
     void mainPanel(){
         bBody = new Vector<>();
-        /*Vector<String> row1 = new Vector<>();
-        row1.add("1");
-        row1.add("2");
-        row1.add("3");
-        row1.add("4");
-        
-        Vector<String> row2 = new Vector<>();
-        row2.add("5");
-        row2.add("6");
-        row2.add("7");
-        row2.add("8");
-
-        bBody.add(row1);
-        bBody.add(row2);*/
-
         DBHandler dh = new DBHandler();
-        dh.executeSelectColumns("BOARD natural join EMP order by WDATE", "B_NO", "B_BODY", "ENAME", "WDATE");
+        dh.executeSelectColumns("BOARD natural join EMP order by B_NO desc", "B_NO", "B_BODY", "ENAME", "WDATE");
         bBody = dh.getData();
 
         for(int i=1; i<=bBody.size(); i++){
@@ -137,7 +129,21 @@ public class Board extends JPanel{
             boardIndex.add(dateLbl, constraints);
             boardIndex.setFont(new Font("맑은 고딕", Font.BOLD, 15));
             boardIndex.setBackground(Color.WHITE);
-
         }
+    }
+}
+class NewBoardListener implements ActionListener{
+    Board bod;
+    String b_BODY;
+    NewBoardListener(Board bod){
+        this.bod = bod;
+    }
+    @Override
+    public void actionPerformed(ActionEvent ae){
+        b_BODY = JOptionPane.showInputDialog(null, "글쓰기", "새 글");
+        System.out.println(b_BODY);
+    }
+    void newBoardWrite(){
+        b_BODY
     }
 }
