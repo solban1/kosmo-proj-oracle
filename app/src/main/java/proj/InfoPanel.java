@@ -37,7 +37,7 @@ public class InfoPanel extends JPanel{
         dNameBox.setBackground(new Color(Prop.COLOR_MAIN));
         dNameBox.setForeground(Color.WHITE);
         infoTable = new JTable(rowData,dNames);
-        //infoTable.setSize(30,30);
+        infoTable.setEnabled(false); //수정불가
         infoScroll = new JScrollPane(infoTable);
         infoScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		infoScroll.getVerticalScrollBar().setUnitIncrement(16);
