@@ -228,6 +228,15 @@ public class DBHandler {
         return getFirstData();
     }
 
+    public String getEmpnoFromEmail(String email) {
+        try {
+            executeQuery("select EMPNO from EMP where EMAIL='" + email + "'");
+        } catch (SQLException e) {
+            System.err.println("getEmpnoFromEmail() SQLException: " + e);
+        }
+        return getFirstData();
+    }
+
     /**
      * 부서명 목록을 가져옴.
      * 

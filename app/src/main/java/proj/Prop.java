@@ -7,4 +7,5 @@ public class Prop {
 
     public static String email = null;
     public static String ename = null;
+    public static String empno = null;
 }

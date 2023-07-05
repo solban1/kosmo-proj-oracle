@@ -133,6 +133,7 @@ class LoginListener implements ActionListener {
         if(lu.dh.checkPassword(inputId, inputPwd)){
             Prop.email = inputId;
             Prop.ename = lu.dh.getEnameFromEmail(inputId);
+            Prop.empno = lu.dh.getEmpnoFromEmail(inputId);
             
             new MainUI();
             lu.setVisible(false);
