@@ -106,13 +106,13 @@ public class Board extends JPanel{
         bBody.add(row2);*/
 
         DBHandler dh = new DBHandler();
-        dh.executeSelect("BOARD order by B_NO desc");
+        dh.executeSelectColumns("BOARD natural join EMP order by WDATE", "B_NO", "B_BODY", "ENAME", "WDATE");
         bBody = dh.getData();
 
         for(int i=1; i<=bBody.size(); i++){
             JLabel numLbl = new JLabel(bBody.get(i-1).get(0), SwingConstants.CENTER);
-            JLabel bodyLbl = new JLabel(bBody.get(i-1).get(2), SwingConstants.CENTER);
-            JLabel wrtLbl = new JLabel(bBody.get(i-1).get(1), SwingConstants.CENTER);
+            JLabel bodyLbl = new JLabel(bBody.get(i-1).get(1), SwingConstants.CENTER);
+            JLabel wrtLbl = new JLabel(bBody.get(i-1).get(2), SwingConstants.CENTER);
             JLabel dateLbl = new JLabel(bBody.get(i-1).get(3), SwingConstants.CENTER);
             numLbl.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
             bodyLbl.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
