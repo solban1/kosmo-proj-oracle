@@ -18,9 +18,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
@@ -88,6 +88,7 @@ public class Board extends JPanel{
         boardAll = new JPanel(new BorderLayout());
         boardAll.add(boardIndex, BorderLayout.NORTH);
         js = new JScrollPane(boardAll) ;
+        js.getVerticalScrollBar().setUnitIncrement(15);
 
         validate();
         mainPanel();
@@ -136,7 +137,6 @@ public class Board extends JPanel{
 }
 class NewBoardListener implements ActionListener{
     Board bod;
-    String b_Body;
     DBHandler dh;
     NewBoardListener(Board bod){
         this.bod = bod;
@@ -144,10 +144,12 @@ class NewBoardListener implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae){
         bod.mainPanel();
-        b_Body = JOptionPane.showInputDialog(null, "글쓰기", "새 글");
-        //System.out.println(b_BODY);
         dh = new DBHandler();
-        dh.executeUpdate("insert into BOARD(EMPNO, B_BODY, WDATE) VALUES("+Prop.empno+", '"+b_Body+"', SYSDATE)"); //VALUES('내용내용 hihi', SYSDATE);
-        ((MainUI)SwingUtilities.getAncestorOfClass(MainUI.class, bod)).change(new Board());
+        UIManager.put("OptionPane.messageFont", new Font("맑은 고딕", Font.PLAIN, 15));
+        String result = JOptionPane.showInputDialog(null, "글쓰기", null);
+        if(result != null){
+            dh.executeUpdate("insert into BOARD(EMPNO, B_BODY, WDATE) VALUES("+Prop.empno+", '"+result+"', SYSDATE)"); //VALUES('내용내용 hihi', SYSDATE);
+            ((MainUI)SwingUtilities.getAncestorOfClass(MainUI.class, bod)).change(new Board());
+        }
     }
 }
