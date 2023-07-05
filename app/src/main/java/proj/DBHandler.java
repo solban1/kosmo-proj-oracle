@@ -216,7 +216,7 @@ public class DBHandler {
     }
 
     public String getDnameFromEmail(String email) {
-        executeQuery("select DNAME from EMP natural join DEPT where EMAIL='" + email + "'");
+        executeQuery("select DNAME from DEPT natural join EMP where EMAIL='" + email + "'");
         return getFirstData();
     }
 
