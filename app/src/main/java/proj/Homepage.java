@@ -7,12 +7,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Vector;
-
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,10 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.html.HTML;
-
 
 public class Homepage extends JPanel {
 
@@ -33,9 +25,6 @@ public class Homepage extends JPanel {
     JButton bN1 = new JButton("출근");
     JButton bN2 = new JButton("퇴근");
     JButton bN3 = new JButton("정보");
-    JButton bS1 = new JButton("등록하기");
-    JButton bS2 = new JButton("수정하기");
-    JButton bS3 = new JButton("지우기");
 
     JButton CalendarButton = new JButton("일정");
     JButton downb4 = new JButton();
@@ -46,7 +35,7 @@ public class Homepage extends JPanel {
     Homepage() {
 
         Date date = new Date();
-        //System.out.println(date);
+        // System.out.println(date);
         SimpleDateFormat simpl = new SimpleDateFormat("yy.MM.dd");// 현재날짜 버튼 객체
         String s = simpl.format(date);
 
@@ -62,18 +51,18 @@ public class Homepage extends JPanel {
         pp3.add(downb2);
         pp3.add(downb3);
         pp3.add(downb4);
-        
+
         JPanel pp2 = new JPanel();
         setLayout(new BorderLayout());
         pp2.setLayout(new GridLayout(1, 0));
-        
-        
+
         String htmlString = "<HTML>(" + Prop.dname + ") <br> " + Prop.ename + "님 환영합니다<HTML>";
-        JButton upb = new JButton (htmlString);
-        //upb.setText( "<HTML>(Prop.dname) <br> Prop.ename + 님 환영합니다<HTML> "); // HTML 로 가능
-    
+        JButton upb = new JButton(htmlString);
+        // upb.setText( "<HTML>(Prop.dname) <br> Prop.ename + 님 환영합니다<HTML> "); // HTML
+        // 로 가능
+
         upb.setHorizontalAlignment(SwingConstants.LEFT);
-      
+
         pp2.add(upb);
 
         add(pp2);
@@ -104,14 +93,16 @@ public class Homepage extends JPanel {
         JLabel imgLabel = new JLabel(icon);
 
         sP.add(imgLabel);
-        
-        pp1.add(sP,BorderLayout.CENTER);
-        sP.setBackground(new Color(142,202,210));
-        
-        /*sP.setLayout(new GridLayout(1, 3)); // 수정 지우기 삭제 버튼
-        sP.add(bS1);
-        sP.add(bS2);
-        sP.add(bS3);*/
+
+        pp1.add(sP, BorderLayout.CENTER);
+        sP.setBackground(new Color(142, 202, 210));
+
+        /*
+         * sP.setLayout(new GridLayout(1, 3)); // 수정 지우기 삭제 버튼
+         * sP.add(bS1);
+         * sP.add(bS2);
+         * sP.add(bS3);
+         */
 
         pp2.add(pp3, BorderLayout.NORTH);
         pp2.add(pp1, BorderLayout.SOUTH);
@@ -149,10 +140,8 @@ public class Homepage extends JPanel {
         downb2.setBackground(new Color(188, 206, 178));
         CalendarButton.setBackground(new Color(207, 255, 229));
         downb4.setBackground(new Color(170, 240, 209));
-       
-    }
 
-    
+    }
 
     class workbtnActionListener implements ActionListener {
 
@@ -175,7 +164,7 @@ public class Homepage extends JPanel {
             if (wbtn.getText() == "출근") {
 
                 System.out.println("출근버튼 클릭");
-                /* 
+                /*
                  * JOptionPane.showConfirmDialog(null, "출근하시겠습니까?", "출근",
                  * JOptionPane.YES_NO_OPTION,
                  * JOptionPane.INFORMATION_MESSAGE, icon1);
@@ -208,9 +197,12 @@ public class Homepage extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            /*UIManager.put("OptionPane.background", new Color(Prop.COLOR_MAIN)); // UIOPTION 색상
-            UIManager.put("Panel.background", new Color(Prop.COLOR_MAIN));
-            UIManager.put("Button.background", new Color(194, 177, 227));*/
+            /*
+             * UIManager.put("OptionPane.background", new Color(Prop.COLOR_MAIN)); //
+             * UIOPTION 색상
+             * UIManager.put("Panel.background", new Color(Prop.COLOR_MAIN));
+             * UIManager.put("Button.background", new Color(194, 177, 227));
+             */
 
             System.out.println("로그아웃 버튼 클릭");
             int i = JOptionPane.showConfirmDialog(null, "로그아웃하시겠습니까?", "로그아웃", JOptionPane.YES_NO_OPTION,
@@ -224,19 +216,23 @@ public class Homepage extends JPanel {
             }
         }
     }
-    class HandlerCalButton implements ActionListener{
+
+    class HandlerCalButton implements ActionListener {
         Homepage hp;
 
         HandlerCalButton(Homepage hp) {
-                this.hp = hp;
+            this.hp = hp;
 
         }
-        @Override  // 일정버튼 누르면 일정표로 가게만드는 
+
+        @Override // 일정버튼 누르면 일정표로 가게만드는
         public void actionPerformed(ActionEvent e) {
-        ((MainUI)SwingUtilities.getAncestorOfClass(MainUI.class, hp)).change(new Calendar());   
-            
+            ((MainUI) SwingUtilities.getAncestorOfClass(MainUI.class, hp)).change(new Calendar());
+
         }
     }
+
+
     public static void main(String[] args) {
         Homepage h = new Homepage();
 
