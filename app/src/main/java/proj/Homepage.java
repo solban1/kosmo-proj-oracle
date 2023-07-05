@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.text.html.HTML;
 
 
 public class Homepage extends JPanel {
@@ -65,10 +66,12 @@ public class Homepage extends JPanel {
         pp2.setLayout(new GridLayout(1, 0));
         
         
-        JButton upb = new JButton(Prop.ename + "님 환영합니다" + (Prop.dname));
-        
-        
-
+        String htmlString = "<HTML>(" + Prop.dname + ") <br> " + Prop.ename + "님 환영합니다<HTML>";
+        JButton upb = new JButton (htmlString);
+        //upb.setText( "<HTML>(Prop.dname) <br> Prop.ename + 님 환영합니다<HTML> "); // HTML 로 가능
+    
+        upb.setHorizontalAlignment(SwingConstants.LEFT);
+      
         pp2.add(upb);
 
         add(pp2);
