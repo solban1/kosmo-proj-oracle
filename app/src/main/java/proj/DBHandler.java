@@ -290,4 +290,18 @@ public class DBHandler {
             return null;
         }
     }
+
+    public void addToAttendLog(String empno, boolean isLeaving) {
+        if (isLeaving) {
+            int rows = executeUpdate("update ATTEND set A_END=SYSDATE where A_END is null and EMPNO=" + empno);
+            if (rows != 1) {
+                System.err.println("addToAttendLog() 실패: " + rows + "줄이 입력됨");
+            }
+        } else {
+            int rows = executeUpdate("insert into ATEEND (EMPNO, A_START) values (" + empno + "), SYSDATE");
+            if (rows != 1) {
+                System.err.println("addToAttendLog() 실패: " + rows + "줄이 입력됨");
+            }
+        }
+    }
 }

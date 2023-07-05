@@ -16,6 +16,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.Vector;
 
 import com.github.lgooddatepicker.components.DatePicker;
 
@@ -28,6 +29,8 @@ public class ApprovalNew extends JPanel {
 	private ActionListener submitListener;
 	private ActionListener cancelListener;
 	private JPanel panel;
+
+	private DBHandler db;
 
 	private void initListeners() {
 		boxListener = e -> {
@@ -59,8 +62,8 @@ public class ApprovalNew extends JPanel {
 				JOptionPane.showMessageDialog(this, "종료일은 시작일보다 앞설 수 없습니다.", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			// int remainingDays = db.getRemainingOffDays(Prop.email);
-			int remainingDays = 3;
+			db.executeQuery("select DAYOFF from EMP where EMPNO=" + Prop.empno);
+			int remainingDays = Integer.parseInt(db.getFirstData());
 			if (days > remainingDays) {
 				JOptionPane.showMessageDialog(this, """
 					남은 휴가일수가 부족합니다.
@@ -75,7 +78,11 @@ public class ApprovalNew extends JPanel {
 				남은 휴가일수: %d일""".formatted(startDate, endDate, days, remainingDays - days), "확인", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			
 			if (response == JOptionPane.YES_OPTION) {
-				// db.insertOff(...);
+				int rows = db.executeUpdate("insert into OFF (EMPNO, O_START, O_END) values (%s, to_date('%s', 'YYYY-MM-DD'), to_date('%s', 'YYYY-MM-DD'))".formatted(Prop.empno, startDate.toString(), endDate.toString()));
+				if (rows != 1) {
+					JOptionPane.showMessageDialog(this, "신청이 정상적으로 완료되지 않았습니다.", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				JOptionPane.showMessageDialog(this, "신청이 완료되었습니다.", "안내", JOptionPane.INFORMATION_MESSAGE);
 			}
 		};
@@ -212,6 +219,17 @@ public class ApprovalNew extends JPanel {
 		gbc_cancelButton.gridy = 5;
 		cancelButton.addActionListener(cancelListener);
 		panel.add(cancelButton, gbc_cancelButton);
+
+		writerField.setText(Prop.ename);
+		
+		db = new DBHandler();
+		db.executeQuery("select EMPNO, ENAME from EMP where EMPNO=(select DHEAD from DEPT where DEPTNO=(select DEPTNO from EMP where EMPNO=" + Prop.empno + "))");
+		Vector<String> mgr = db.getFirstRow();
+		if (mgr == null) {
+			approvalField.setText(Prop.ename);
+		} else {
+			approvalField.setText(mgr.get(1));
+		}
 	}
 
 }
