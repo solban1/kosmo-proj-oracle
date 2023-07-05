@@ -79,11 +79,7 @@ public class MainUI extends JFrame {
         bottomPanel.add(bottomBtns.get("홈"));
         bottomPanel.add(bottomBtns.get("정보"));
 
-        dummyPanel = new JPanel();
-        dummyPanel.add(new JLabel("dummyPanel"));
-        add(dummyPanel);
-        dummyPanel2 = new JPanel();
-        dummyPanel2.add(new JLabel("dummyPanel2"));
+        add(new Homepage());
 
         setUI();
         timer();
