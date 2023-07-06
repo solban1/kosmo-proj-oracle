@@ -48,6 +48,9 @@ public class MenuPanel extends JPanel {
         boardListener = e -> {
             ((MainUI)SwingUtilities.getAncestorOfClass(MainUI.class, this)).change(new Board());
         };
+        attendLogListener = e -> {
+            ((MainUI)SwingUtilities.getAncestorOfClass(MainUI.class, this)).change(new AttendanceRecord());
+        };
         logoutListener = e -> {
             int response = JOptionPane.showConfirmDialog(getParent(), "로그아웃하시겠습니까?", "로그아웃", JOptionPane.YES_NO_OPTION);
             if (response == JOptionPane.YES_OPTION) {
