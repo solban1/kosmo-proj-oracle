@@ -1,5 +1,8 @@
 package proj;
 
+import java.awt.Component;
+import java.util.Vector;
+
 import javax.swing.JOptionPane;
 
 public class ApprovalList extends BoxList<ApprovalListItem> {
@@ -7,12 +10,17 @@ public class ApprovalList extends BoxList<ApprovalListItem> {
 
     public ApprovalList() {
         super();
-        for (int i = 0; i < 5; i++) {
-            ApprovalListItem item = new ApprovalListItem("startDate", "endDate", "empno", "name");
+        db = new DBHandler();
+        db.executeQuery("select EMPNO, ENAME, to_char(O_START, 'YYYY-MM-DD'), to_char(O_END, 'YYYY-MM-DD') from OFF natural join EMP where ACCEPTED='N' and EMPNO=any(select EMPNO from EMP where DEPTNO=(select DEPTNO from DEPT where DNAME='" + Prop.dname + "'))");
+        for (Vector<String> row : db.getData()) {
+            ApprovalListItem item = new ApprovalListItem(row.get(2), row.get(3), row.get(0), row.get(1));
             add(item);
         }
-        
+    }
 
+    public Component add(ApprovalListItem comp) {
+        comp.setParentList(this);
+        return add((Component)comp);
     }
 
     void approve(ApprovalListItem item) {
@@ -32,6 +40,8 @@ public class ApprovalList extends BoxList<ApprovalListItem> {
             return;
         }
         remove(item);
+        revalidatePanel();
+        repaint();
     }
 
     void reject(ApprovalListItem item) {
@@ -45,6 +55,8 @@ public class ApprovalList extends BoxList<ApprovalListItem> {
             return;
         }
         remove(item);
+        revalidatePanel();
+        repaint();
     }
 
     

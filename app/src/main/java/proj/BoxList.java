@@ -2,7 +2,6 @@ package proj;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
@@ -39,5 +38,9 @@ public class BoxList<T extends Component> extends JScrollPane {
     @Override
     public void remove(Component comp) {
         boxPanel.remove(comp);
+    }
+
+    public void revalidatePanel() {
+        boxPanel.revalidate();
     }
 }

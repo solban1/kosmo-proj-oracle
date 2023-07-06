@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 
 import com.google.common.collect.ImmutableList;
@@ -30,6 +29,10 @@ public class ApprovalListItem extends JPanel {
     private String endDate = "";
     private String ename = "";
     private String empno = "";
+
+    void setParentList(ApprovalList parentList) {
+        this.parentList = parentList;
+    }
 
     String getStartDate() {
         return startDate;
@@ -91,7 +94,6 @@ public class ApprovalListItem extends JPanel {
             rightPanel.add(btn);
         });
 
-        parentList = (ApprovalList)SwingUtilities.getAncestorOfClass(ApprovalList.class, this); // TODO: fix NullPointerException
         add(rightPanel, BorderLayout.EAST);
     }
 }
