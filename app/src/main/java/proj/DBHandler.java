@@ -94,7 +94,7 @@ public class DBHandler {
 
     public ResultSet executeSelectAttend(String ename) {
         return executeQuery(
-                "select A_START, A_END from ATTEND where EMPNO=(select EMPNO from EMP where ENAME='" + ename + "')");
+                "select A_START, A_END from ATTEND where EMPNO=(select EMPNO from EMP where ENAME='" + ename + "') order by A_START desc");
     }
 
     /**
