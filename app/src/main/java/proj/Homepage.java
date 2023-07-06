@@ -37,6 +37,7 @@ public class Homepage extends JPanel {
         SimpleDateFormat simpl = new SimpleDateFormat("yy.MM.dd");// 현재날짜 버튼 객체
         String s = simpl.format(date);
 
+        
         JPanel pp3 = new JPanel();
         setLayout(new BorderLayout());
         pp3.setLayout(new GridLayout(2, 3));
@@ -44,7 +45,8 @@ public class Homepage extends JPanel {
         JButton todyaButton = new JButton(s); // 현재 날짜
         JButton boardButton = new JButton("게시판");
         JButton logoutButton = new JButton(new ImageIcon("res/logout11.png"));
-
+       
+    
         pp3.add(CalendarButton);
         pp3.add(todyaButton);
         pp3.add(boardButton);
@@ -101,7 +103,7 @@ public class Homepage extends JPanel {
         sP.add(imgLabel);
 
         pp1.add(sP, BorderLayout.CENTER);
-        sP.setBackground(new Color(142, 202, 210));
+               sP.setBackground(new Color(142, 202, 210));
 
         /*
          * sP.setLayout(new GridLayout(1, 3)); // 수정 지우기 삭제 버튼

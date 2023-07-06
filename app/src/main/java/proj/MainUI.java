@@ -25,14 +25,17 @@ public class MainUI extends JFrame {
     private JPanel topPanel, bottomPanel, dummyPanel, dummyPanel2;
     private JLabel titleLbl, titleTime, dummyLbl;
     private HashMap<String, JButton> bottomBtns;
+    private HashMap<String, JLabel> upplabels;
     private ActionListener attendListener, menuListener, homeListener, infoListener, logoutListener;
     private Component currentPanel;
     private String formattedTime;
 
+    JLabel HtitleLable, IntitleLable, LtitleLable, MtitleLable, AtitleLable;
+
     public MainUI() {
         super("HelloWare");
         initListeners();
-        
+
         UIManager.put("Label.font", new FontUIResource("Malgun Gothic", Font.PLAIN, 11));
         topPanel = new JPanel();
         topPanel.setBackground(new Color(Prop.COLOR_MAIN));
@@ -50,10 +53,17 @@ public class MainUI extends JFrame {
         titleTime.setFont(new Font("Malgun Gothic", Font.BOLD, 18));
         titleTime.setForeground(Color.WHITE);
         dummyLbl = new JLabel();
-        topPanel.setLayout(new GridLayout(1,3));
+        topPanel.setLayout(new GridLayout(1, 3));
         topPanel.add(dummyLbl);
         topPanel.add(titleLbl);
         topPanel.add(titleTime);
+
+        /*upplabels = new HashMap<>(4);
+        upplabels.put("ATTEND", new JLabel("ATTEND", SwingConstants.NORTH));
+        upplabels.get("ATTEND").addActionListener(attendListener);
+        upplabels.put("MEMU", new JLabel("MEMU", SwingConstants.NORTH));
+        upplabels.put("HOME", new JLabel("HOME", SwingConstants.NORTH));
+        upplabels.put("InfroMation", new JLabel("InfroMation", SwingConstants.NORTH));*/
 
         bottomBtns = new HashMap<>(7);
         bottomBtns.put("근태", new JButton("근태"));
@@ -83,14 +93,16 @@ public class MainUI extends JFrame {
 
         setUI();
         timer();
+
     }
-    public void timer(){
-        //titleTime = new JLabel();
+
+    public void timer() {
+        // titleTime = new JLabel();
         Timer timer = new Timer();
 
-        TimerTask task = new TimerTask(){
+        TimerTask task = new TimerTask() {
             @Override
-            public void run(){
+            public void run() {
                 Date date1 = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("aaa hh:mm:ss");
                 formattedTime = sdf.format(date1);
@@ -105,21 +117,26 @@ public class MainUI extends JFrame {
         addImpl(comp, null, -1);
         currentPanel = comp;
         return comp;
-        
+
     }
 
     private void initListeners() {
         attendListener = e -> {
             change(new AttendanceRecord());
+            titleLbl.setText("ATTEN");
+
         };
         menuListener = e -> {
             change(new MenuPanel());
+            titleLbl.setText("MEMU");
         };
         homeListener = e -> {
             change(new Homepage());
+            titleLbl.setText("HOME");
         };
         infoListener = e -> {
             change(new InfoPanel());
+            titleLbl.setText("정보");
         };
         logoutListener = e -> {
             LogUI lu = new LogUI();
@@ -136,6 +153,7 @@ public class MainUI extends JFrame {
         validate();
     }
 
+
     private void setUI() {
         setSize(Prop.WIN_WIDTH, Prop.WIN_HEIGHT);
         setVisible(true);
@@ -144,6 +162,7 @@ public class MainUI extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
     public static void main(String[] args) {
         new MainUI();
     }

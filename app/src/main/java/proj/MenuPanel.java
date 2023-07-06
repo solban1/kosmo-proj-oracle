@@ -64,7 +64,7 @@ public class MenuPanel extends JPanel {
 
     private void initUI() {
         attendLogButton = new JButton("근태기록", new ImageIcon("res/bag.png"));
-
+        
         attendLogButton.addActionListener(attendLogListener);
 
         calButton = new JButton("일정관리", new ImageIcon("res/calendar.png"));

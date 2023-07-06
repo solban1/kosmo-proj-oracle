@@ -3,13 +3,12 @@ package proj;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.ScrollPane;
-import java.sql.Connection;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
+
 import java.util.Date;
 import java.util.Vector;
 
