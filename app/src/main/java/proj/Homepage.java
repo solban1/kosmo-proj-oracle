@@ -26,12 +26,12 @@ public class Homepage extends JPanel {
     JButton CalendarButton = new JButton("일정");
     JButton downb4 = new JButton();
     int exitnum = 0;
-    
+
     JButton logButton = new JButton("<<버튼을 눌러주세요");
     DBHandler db = new DBHandler();
+
     Homepage() {
-        
-        
+
         Date date = new Date();
         // System.out.println(date);
         SimpleDateFormat simpl = new SimpleDateFormat("yy.MM.dd");// 현재날짜 버튼 객체
@@ -41,14 +41,14 @@ public class Homepage extends JPanel {
         setLayout(new BorderLayout());
         pp3.setLayout(new GridLayout(2, 3));
 
-        JButton downb2 = new JButton(s); // 현재 날짜
-        JButton downb3 = new JButton();
-        JButton downb4 = new JButton(new ImageIcon("res/logout11.png"));
+        JButton todyaButton = new JButton(s); // 현재 날짜
+        JButton boardButton = new JButton("게시판");
+        JButton logoutButton = new JButton(new ImageIcon("res/logout11.png"));
 
         pp3.add(CalendarButton);
-        pp3.add(downb2);
-        pp3.add(downb3);
-        pp3.add(downb4);
+        pp3.add(todyaButton);
+        pp3.add(boardButton);
+        pp3.add(logoutButton);
 
         JPanel pp2 = new JPanel();
         setLayout(new BorderLayout());
@@ -80,17 +80,18 @@ public class Homepage extends JPanel {
         btnpanel.setLayout(new GridLayout(1, 3));
         JButton workButton = new JButton("출근");
 
-        
-        db.executeQuery("select EMPNO,A_START,A_END from ATTEND where EMPNO="+ Prop.empno + " and trunc(A_START)=trunc(SYSDATE) and A_END is null "  );//사원번호가 자신의 번호고 출근일시가 오늘이고 퇴근 일시가 null 인 데이터를 찾는다 
+        db.executeQuery("select EMPNO,A_START,A_END from ATTEND where EMPNO=" + Prop.empno
+                + " and trunc(A_START)=trunc(SYSDATE) and A_END is null ");// 사원번호가 자신의 번호고 출근일시가 오늘이고 퇴근 일시가 null 인
+                                                                           // 데이터를 찾는다
         if (db.getFirstData() != null) {
-           workButton.setText("퇴근");
+            workButton.setText("퇴근");
         }
 
         btnpanel.add(workButton);
         btnpanel.add(logButton);
 
         workButton.addActionListener(new workbtnActionListener());
-        
+        boardButton.addActionListener(new HandlerBoardbutton(this));
         CalendarButton.addActionListener(new HandlerCalButton(this));
 
         ImageIcon icon = new ImageIcon("res/clerk3.jpg");
@@ -123,66 +124,61 @@ public class Homepage extends JPanel {
         logButton.setBorderPainted(false);
 
         CalendarButton.setBorderPainted(false);
-        downb2.setBorderPainted(false);
-        downb3.setBorderPainted(false);
-        downb4.setBorderPainted(false);
+        todyaButton.setBorderPainted(false);
+        logoutButton.setBorderPainted(false);
+        boardButton.setBorderPainted(false);
 
         workButton.setFont(new Font("맑은고딕", Font.BOLD, 20));
         logButton.setFont(new Font("맑은고딕", Font.BOLD, 13));
 
-        CalendarButton.setFont(new Font("궁서체", Font.BOLD, 13));
-        downb2.setFont(new Font("맑은고딕", Font.BOLD, 13));
         CalendarButton.setFont(new Font("맑은고딕", Font.BOLD, 13));
-        downb4.setFont(new Font("맑은고딕", Font.BOLD, 9));
+        todyaButton.setFont(new Font("맑은고딕", Font.BOLD, 13));
+        logoutButton.setFont(new Font("맑은고딕", Font.BOLD, 13));
+        boardButton.setFont(new Font("맑은고딕", Font.BOLD, 13));
 
-        downb4.addActionListener(new HhandlerButton(this)); // 로그아웃 버튼
+        logoutButton.addActionListener(new HhandlerButton(this)); // 로그아웃 버튼
 
         workButton.setBackground(new Color(Prop.COLOR_MAIN));
         logButton.setBackground(new Color(Prop.COLOR_MAIN));
 
         upb.setBackground(new Color(002, 170, 178));
-        downb3.setBackground(new Color(180, 239, 236));
-        downb2.setBackground(new Color(188, 206, 178));
+        logoutButton.setBackground(new Color(180, 239, 236));
+        todyaButton.setBackground(new Color(188, 206, 178));
         CalendarButton.setBackground(new Color(207, 255, 229));
-        downb4.setBackground(new Color(170, 240, 209));
+        boardButton.setBackground(new Color(170, 240, 209));
 
     }
 
     class workbtnActionListener implements ActionListener {
-    
- 
+
         @Override
         public void actionPerformed(ActionEvent e) { // 출근 퇴근 버튼 액션리스너
             JButton wbtn = (JButton) e.getSource();
             wbtn.setBorderPainted(false);
-            
-            
+
             Date date1 = new Date();
             SimpleDateFormat simpl = new SimpleDateFormat("yy.MM.dd hh:mm aaa");
             String s1 = simpl.format(date1);
-        
-  
+
             if (wbtn.getText().equals("출근")) {
                 System.out.println("출근 버튼 클릭");
                 JOptionPane.showMessageDialog(null, "출근완료", null, JOptionPane.PLAIN_MESSAGE);
-                db.executeUpdate("insert into ATTEND(EMPNO, A_START) values("+ Prop.empno +", SYSDATE)");
+                db.executeUpdate("insert into ATTEND(EMPNO, A_START) values(" + Prop.empno + ", SYSDATE)");
                 wbtn.setText("퇴근");
-                
-        
-             
-            }
-            else {
+
+            } else {
                 wbtn.setText("출근");
                 System.out.println("퇴근버튼 클릭");
                 JOptionPane.showMessageDialog(null, "퇴근 완료", null, JOptionPane.PLAIN_MESSAGE);
-                
-                //UPDATE ATTEND set A_END = (SYSDATE) where empno=1002 and trunc(A_START)=trunc(SYSDATE) and (A_END is null);
-                db.executeUpdate("UPDATE ATTEND set A_END = (SYSDATE) where EMPNO =" + Prop.empno+ " and trunc(A_START)= trunc(SYSDATE) and (A_END is null)");
+
+                // UPDATE ATTEND set A_END = (SYSDATE) where empno=1002 and
+                // trunc(A_START)=trunc(SYSDATE) and (A_END is null);
+                db.executeUpdate("UPDATE ATTEND set A_END = (SYSDATE) where EMPNO =" + Prop.empno
+                        + " and trunc(A_START)= trunc(SYSDATE) and (A_END is null)");
             }
 
-
             logButton.setText(s1);
-      
+
         }
     }
 
@@ -229,8 +225,20 @@ public class Homepage extends JPanel {
             ((MainUI) SwingUtilities.getAncestorOfClass(MainUI.class, hp)).change(new Calendar());
 
         }
+
     }
 
+    class HandlerBoardbutton implements ActionListener {
+        Homepage hp;
+
+        HandlerBoardbutton(Homepage hp) {
+            this.hp = hp;
+        }
+        @Override // 게시판 으로가게 만드는 액션리스너
+        public void actionPerformed(ActionEvent e) {
+            ((MainUI) SwingUtilities.getAncestorOfClass(MainUI.class, hp)).change(new Board());
+        }
+    }
 
     public static void main(String[] args) {
         Homepage h = new Homepage();
