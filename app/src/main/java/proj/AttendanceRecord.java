@@ -46,7 +46,7 @@ public class AttendanceRecord extends JPanel {
         
         add(jPanel,BorderLayout.NORTH);
         // 테이블 추가
-        
+    
         DBHandler db = new DBHandler();
         db.executeSelectAttend(Prop.ename);
         Vector<String> columnData = db.getColumnData();
@@ -56,12 +56,15 @@ public class AttendanceRecord extends JPanel {
         columnName.add("업무시간");
         Vector<Vector<String>> data = db.getData();
         for (Vector<String> row : data) {
+            if(row.get(1) == null) {
+                continue;
+            }
             DateTimeFormatter f = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
             long minutes = ChronoUnit.MINUTES.between(LocalDateTime.parse(row.get(0), f), LocalDateTime.parse(row.get(1), f));
             row.add(minutes / 60 + "시간 " + minutes % 60 + "분");
             row.add(row.get(1));
         }
-        System.out.println(columnData);
+        //System.out.println(columnData);
         RecordTable = new JTable(data,columnName);
         JScrollPane sp = new JScrollPane();
         sp.setViewportView(RecordTable);

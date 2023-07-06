@@ -8,12 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.Vector;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -27,18 +22,16 @@ public class Homepage extends JPanel {
     JLabel jL1, jL2;
     JOptionPane jp;
     Container con;
-    JButton bN1 = new JButton("출근");
-    JButton bN2 = new JButton("퇴근");
-    JButton bN3 = new JButton("정보");
 
     JButton CalendarButton = new JButton("일정");
     JButton downb4 = new JButton();
     int exitnum = 0;
-
+    
     JButton logButton = new JButton("출근 버튼을 눌러주세요");
-
+    DBHandler db = new DBHandler();
     Homepage() {
-
+        
+        
         Date date = new Date();
         // System.out.println(date);
         SimpleDateFormat simpl = new SimpleDateFormat("yy.MM.dd");// 현재날짜 버튼 객체
@@ -49,7 +42,7 @@ public class Homepage extends JPanel {
         pp3.setLayout(new GridLayout(2, 3));
 
         JButton downb2 = new JButton(s); // 현재 날짜
-        JButton downb3 = new JButton("업무");
+        JButton downb3 = new JButton();
         JButton downb4 = new JButton("로그아웃");
 
         pp3.add(CalendarButton);
@@ -87,10 +80,17 @@ public class Homepage extends JPanel {
         btnpanel.setLayout(new GridLayout(1, 3));
         JButton workButton = new JButton("출근");
 
+        
+        db.executeQuery("select EMPNO,A_START,A_END from ATTEND where EMPNO="+ Prop.empno + " and trunc(A_START)=trunc(SYSDATE) and A_END is null"  );//사원번호가 자신의 번호고 출근일시가 오늘이고 퇴근 일시가 null 인 데이터를 찾는다 
+        if (db.getFirstData() != null) {
+           workButton.setText("퇴근");
+        }
+
         btnpanel.add(workButton);
         btnpanel.add(logButton);
 
         workButton.addActionListener(new workbtnActionListener());
+        
         CalendarButton.addActionListener(new HandlerCalButton(this));
 
         ImageIcon icon = new ImageIcon("res/clerk3.jpg");
@@ -149,50 +149,55 @@ public class Homepage extends JPanel {
     }
 
     class workbtnActionListener implements ActionListener {
-
+    
+ 
         @Override
         public void actionPerformed(ActionEvent e) { // 출근 퇴근 버튼 액션리스너
             JButton wbtn = (JButton) e.getSource();
             wbtn.setBorderPainted(false);
-
+            
+            
             Date date1 = new Date();
             SimpleDateFormat simpl = new SimpleDateFormat("yy.MM.dd hh:mm aaa");
             String s1 = simpl.format(date1);
-   
-
-            DBHandler db = new DBHandler();    
-            db.executeSelectAttend(Prop.ename);
-           
-    
         
-       
   
-            if (wbtn.getText().equals("출근"))
+            if (wbtn.getText().equals("출근")) {
+                System.out.println("출근 버튼 클릭");
+                JOptionPane.showMessageDialog(null, "출근완료", null, JOptionPane.PLAIN_MESSAGE);
+                db.executeUpdate("insert into ATTEND(EMPNO, A_START) values("+ Prop.empno +", SYSDATE)");
                 wbtn.setText("퇴근");
-
-            else
+                
+                
+            }
+            else {
                 wbtn.setText("출근");
-
-            if (wbtn.getText() == "출근") {
-
+                System.out.println("퇴근버튼 클릭");
+                JOptionPane.showMessageDialog(null, "퇴근 완료", null, JOptionPane.PLAIN_MESSAGE);
+                
+                //UPDATE ATTEND set A_END = (SYSDATE) where empno=1002 and trunc(A_START)=trunc(SYSDATE) and (A_END is null);
+                db.executeUpdate("UPDATE ATTEND set A_END = (SYSDATE) where EMPNO =" + Prop.empno+ " and trunc(A_START)= trunc(SYSDATE) and (A_END is null)");
+            }
+            /*if (wbtn.getText().equals ("출근")) {
                 System.out.println("출근버튼 클릭");
+                JOptionPane.showMessageDialog(null, "퇴근 완료", null, JOptionPane.PLAIN_MESSAGE);
                 /*
                  * JOptionPane.showConfirmDialog(null, "출근하시겠습니까?", "출근",
                  * JOptionPane.YES_NO_OPTION,
                  * JOptionPane.INFORMATION_MESSAGE, icon1);
-                 */
-                JOptionPane.showMessageDialog(null, "퇴근 완료", null, JOptionPane.PLAIN_MESSAGE);
+                 
+              
 
             } else {
-                System.out.println("퇴근버튼 클릭");
+                
                 /*
                  * JOptionPane.showConfirmDialog(null, "퇴근하시겠습니까?", "퇴근",
                  * JOptionPane.YES_NO_OPTION,
                  * JOptionPane.INFORMATION_MESSAGE, null);
-                 */
+                 
                 JOptionPane.showMessageDialog(null, "출근완료", null, JOptionPane.PLAIN_MESSAGE);
 
-            }
+            }*/
 
             logButton.setText(s1);
       
