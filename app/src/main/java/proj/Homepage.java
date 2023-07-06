@@ -27,7 +27,7 @@ public class Homepage extends JPanel {
     JButton downb4 = new JButton();
     int exitnum = 0;
     
-    JButton logButton = new JButton("출근 버튼을 눌러주세요");
+    JButton logButton = new JButton("<<버튼을 눌러주세요");
     DBHandler db = new DBHandler();
     Homepage() {
         
@@ -43,7 +43,7 @@ public class Homepage extends JPanel {
 
         JButton downb2 = new JButton(s); // 현재 날짜
         JButton downb3 = new JButton();
-        JButton downb4 = new JButton("로그아웃");
+        JButton downb4 = new JButton(new ImageIcon("res/logout11.png"));
 
         pp3.add(CalendarButton);
         pp3.add(downb2);
@@ -81,7 +81,7 @@ public class Homepage extends JPanel {
         JButton workButton = new JButton("출근");
 
         
-        db.executeQuery("select EMPNO,A_START,A_END from ATTEND where EMPNO="+ Prop.empno + " and trunc(A_START)=trunc(SYSDATE) and A_END is null"  );//사원번호가 자신의 번호고 출근일시가 오늘이고 퇴근 일시가 null 인 데이터를 찾는다 
+        db.executeQuery("select EMPNO,A_START,A_END from ATTEND where EMPNO="+ Prop.empno + " and trunc(A_START)=trunc(SYSDATE) and A_END is null "  );//사원번호가 자신의 번호고 출근일시가 오늘이고 퇴근 일시가 null 인 데이터를 찾는다 
         if (db.getFirstData() != null) {
            workButton.setText("퇴근");
         }
@@ -133,7 +133,7 @@ public class Homepage extends JPanel {
         CalendarButton.setFont(new Font("궁서체", Font.BOLD, 13));
         downb2.setFont(new Font("맑은고딕", Font.BOLD, 13));
         CalendarButton.setFont(new Font("맑은고딕", Font.BOLD, 13));
-        downb4.setFont(new Font("맑은고딕", Font.BOLD, 13));
+        downb4.setFont(new Font("맑은고딕", Font.BOLD, 9));
 
         downb4.addActionListener(new HhandlerButton(this)); // 로그아웃 버튼
 
@@ -168,7 +168,8 @@ public class Homepage extends JPanel {
                 db.executeUpdate("insert into ATTEND(EMPNO, A_START) values("+ Prop.empno +", SYSDATE)");
                 wbtn.setText("퇴근");
                 
-                
+        
+             
             }
             else {
                 wbtn.setText("출근");
@@ -178,26 +179,7 @@ public class Homepage extends JPanel {
                 //UPDATE ATTEND set A_END = (SYSDATE) where empno=1002 and trunc(A_START)=trunc(SYSDATE) and (A_END is null);
                 db.executeUpdate("UPDATE ATTEND set A_END = (SYSDATE) where EMPNO =" + Prop.empno+ " and trunc(A_START)= trunc(SYSDATE) and (A_END is null)");
             }
-            /*if (wbtn.getText().equals ("출근")) {
-                System.out.println("출근버튼 클릭");
-                JOptionPane.showMessageDialog(null, "퇴근 완료", null, JOptionPane.PLAIN_MESSAGE);
-                /*
-                 * JOptionPane.showConfirmDialog(null, "출근하시겠습니까?", "출근",
-                 * JOptionPane.YES_NO_OPTION,
-                 * JOptionPane.INFORMATION_MESSAGE, icon1);
-                 
-              
 
-            } else {
-                
-                /*
-                 * JOptionPane.showConfirmDialog(null, "퇴근하시겠습니까?", "퇴근",
-                 * JOptionPane.YES_NO_OPTION,
-                 * JOptionPane.INFORMATION_MESSAGE, null);
-                 
-                JOptionPane.showMessageDialog(null, "출근완료", null, JOptionPane.PLAIN_MESSAGE);
-
-            }*/
 
             logButton.setText(s1);
       
