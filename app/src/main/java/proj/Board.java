@@ -115,6 +115,7 @@ public class Board extends JPanel{
             GridBagConstraints constraints = new GridBagConstraints();
             constraints.fill = GridBagConstraints.HORIZONTAL; 
             constraints.weightx = 1;
+            constraints.ipady = 5;
 
             constraints.gridx = 0;
             constraints.gridy = i;
@@ -130,6 +131,7 @@ public class Board extends JPanel{
             boardIndex.add(dateLbl, constraints);
             boardIndex.setFont(new Font("맑은 고딕", Font.BOLD, 15));
             boardIndex.setBackground(Color.WHITE);
+
         }
     }
 }
