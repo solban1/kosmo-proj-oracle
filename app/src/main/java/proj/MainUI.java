@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -72,7 +73,7 @@ public class MainUI extends JFrame {
         bottomBtns.get("메뉴").addActionListener(menuListener);
         bottomBtns.put("홈", new JButton("홈"));
         bottomBtns.get("홈").addActionListener(homeListener);
-        bottomBtns.put("정보", new JButton("정보"));
+        bottomBtns.put("정보", new JButton(new ImageIcon("res/info.png")));
         bottomBtns.get("정보").addActionListener(infoListener);
 
         Font btnFont = new Font("Malgun Gothic", Font.PLAIN, 16);
