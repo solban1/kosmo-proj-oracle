@@ -42,7 +42,7 @@ public class Homepage extends JPanel {
         setLayout(new BorderLayout());
         pp3.setLayout(new GridLayout(2, 3));
 
-        JButton todyaButton = new JButton(); // 현재 날짜
+        JButton todyaButton = new JButton("날씨로딩중"); // 현재 날짜
         WeatherClient.setWeatherAsync(todyaButton);
         JButton boardButton = new JButton("게시판");
         JButton logoutButton = new JButton(new ImageIcon("res/logout1.png"));
@@ -58,7 +58,7 @@ public class Homepage extends JPanel {
         pp2.setLayout(new GridLayout(1, 0));
 
         String htmlString = "<HTML>(" + Prop.dname + ") <br> " + Prop.ename + "님 환영합니다<HTML>";
-        JButton upb = new JButton(htmlString);
+        JButton upb = new JButton(htmlString); //사원 정보 
         // upb.setText( "<HTML>(Prop.dname) <br> Prop.ename + 님 환영합니다<HTML> "); // HTML
         // 로 가능
 
