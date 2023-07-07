@@ -13,7 +13,7 @@ import javax.swing.AbstractButton;
 
 public class WeatherClient {
 
-    public static void setWeatherAsync(AbstractButton btn) {
+    public static void setWeatherAsync(AbstractButton btn, String prefix) {
         // 매시 30분의 데이터가 해당 시 45분에 발표됨(+1분 여유)
         LocalDateTime baseDateTime = LocalDateTime.now()
                 .minusMinutes(46L)
@@ -36,7 +36,11 @@ public class WeatherClient {
                 .thenApply(HttpResponse::body)
                 .thenAccept(is -> {
                     handler.parse(is);
-                    btn.setText(handler.getCurrentWeather());
+                    btn.setText(prefix + handler.getCurrentWeather());
                 });
+    }
+
+    public static void setWeatherAsync(AbstractButton btn) {
+        setWeatherAsync(btn, "");
     }
 }
