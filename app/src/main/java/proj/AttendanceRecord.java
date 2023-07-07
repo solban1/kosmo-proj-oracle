@@ -67,6 +67,7 @@ public class AttendanceRecord extends JPanel {
         RecordTable = new JTable(data,columnName);
         JScrollPane sp = new JScrollPane();
         sp.setViewportView(RecordTable);
+        RecordTable.setRowHeight(30);
         add(sp);
         
         titleL.setFont(new Font("맑은고딕", Font.BOLD, 20));

@@ -29,9 +29,9 @@ public class Homepage extends JPanel {
 
     JButton logButton = new JButton("<<버튼을 눌러주세요");
     DBHandler db = new DBHandler();
-
+    
     Homepage() {
-
+        
         Date date = new Date();
         // System.out.println(date);
         SimpleDateFormat simpl = new SimpleDateFormat("yy.MM.dd");// 현재날짜 버튼 객체
@@ -41,9 +41,9 @@ public class Homepage extends JPanel {
         JPanel pp3 = new JPanel();
         setLayout(new BorderLayout());
         pp3.setLayout(new GridLayout(2, 3));
-
+        
         JButton todyaButton = new JButton("날씨로딩중"); // 현재 날짜
-        WeatherClient.setWeatherAsync(todyaButton);
+        WeatherClient.setWeatherAsync(todyaButton,"<HTML>오늘의 날씨 <br> <HTML>");
         JButton boardButton = new JButton("게시판");
         JButton logoutButton = new JButton(new ImageIcon("res/logout1.png"));
        
@@ -97,28 +97,22 @@ public class Homepage extends JPanel {
         boardButton.addActionListener(new HandlerBoardbutton(this));
         CalendarButton.addActionListener(new HandlerCalButton(this));
 
-        ImageIcon icon = new ImageIcon("res/clerk3.jpg");
+        ImageIcon icon = new ImageIcon("res/clerk3.jpg");  //이미지 
         JPanel sP = new JPanel();
         JLabel imgLabel = new JLabel(icon);
-
+        //JLabel centertitLabel = new JLabel(WeatherClient.setWeatherAsync);
         sP.add(imgLabel);
 
-        pp1.add(sP, BorderLayout.CENTER);
-               sP.setBackground(new Color(142, 202, 210));
+        pp1.add(sP, BorderLayout.CENTER); //가운데 이미지 패널 
+        sP.setBackground(new Color(142, 202, 210));
 
-        /*
-         * sP.setLayout(new GridLayout(1, 3)); // 수정 지우기 삭제 버튼
-         * sP.add(bS1);
-         * sP.add(bS2);
-         * sP.add(bS3);
-         */
-
+ 
         pp2.add(pp3, BorderLayout.NORTH);
         pp2.add(pp1, BorderLayout.SOUTH);
 
         pp1.add(btnpanel, BorderLayout.NORTH); // 수정
 
-        add(pp1, BorderLayout.CENTER);
+        add(pp1, BorderLayout.CENTER); 
         add(pp2, BorderLayout.NORTH);
 
         upb.setBorderPainted(false); // 버튼 윤곽선 지우기
@@ -131,13 +125,13 @@ public class Homepage extends JPanel {
         logoutButton.setBorderPainted(false);
         boardButton.setBorderPainted(false);
 
-        workButton.setFont(new Font("맑은고딕", Font.BOLD, 20));
-        logButton.setFont(new Font("맑은고딕", Font.BOLD, 13));
-
-        CalendarButton.setFont(new Font("맑은고딕", Font.BOLD, 13));
-        todyaButton.setFont(new Font("맑은고딕", Font.BOLD, 13));
-        logoutButton.setFont(new Font("맑은고딕", Font.BOLD, 13));
-        boardButton.setFont(new Font("맑은고딕", Font.BOLD, 13));
+        workButton.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+        logButton.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+        upb.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+        CalendarButton.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+        todyaButton.setFont(new Font("맑은 고딕", Font.BOLD, 11));
+        logoutButton.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+        boardButton.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 
         logoutButton.addActionListener(new HhandlerButton(this)); // 로그아웃 버튼
 

@@ -41,6 +41,7 @@ public class InfoPanel extends JPanel{
         infoScroll = new JScrollPane(infoTable);
         infoScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		infoScroll.getVerticalScrollBar().setUnitIncrement(16);
+        infoTable.setRowHeight(25);
         add(dNameBox,BorderLayout.NORTH);
         add(infoScroll);
         
