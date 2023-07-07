@@ -47,7 +47,7 @@ public class MainUI extends JFrame {
         Date date = new Date();
         SimpleDateFormat simpl = new SimpleDateFormat("hh:mm:ss");
         String s1 = simpl.format(date);
-        titleLbl = new JLabel("Main", SwingConstants.CENTER);
+        titleLbl = new JLabel("HOME", SwingConstants.CENTER);
         titleLbl.setFont(new Font("Malgun Gothic", Font.BOLD, 22));
         titleLbl.setForeground(Color.WHITE);
         titleTime = new JLabel(s1, SwingConstants.CENTER);
@@ -124,12 +124,12 @@ public class MainUI extends JFrame {
     private void initListeners() {
         attendListener = e -> {
             change(new AttendanceRecord());
-            titleLbl.setText("ATTEN");
+            titleLbl.setText("근태");
 
         };
         menuListener = e -> {
             change(new MenuPanel());
-            titleLbl.setText("MEMU");
+            titleLbl.setText("MENU");
         };
         homeListener = e -> {
             change(new Homepage());
@@ -137,7 +137,7 @@ public class MainUI extends JFrame {
         };
         infoListener = e -> {
             change(new InfoPanel());
-            titleLbl.setText("정보");
+            titleLbl.setText("INFO");
         };
         logoutListener = e -> {
             LogUI lu = new LogUI();
