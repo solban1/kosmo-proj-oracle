@@ -42,10 +42,10 @@ public class Homepage extends JPanel {
         setLayout(new BorderLayout());
         pp3.setLayout(new GridLayout(2, 3));
 
-        JButton todyaButton = new JButton(s); // 현재 날짜
+        JButton todyaButton = new JButton(); // 현재 날짜
         WeatherClient.setWeatherAsync(todyaButton);
         JButton boardButton = new JButton("게시판");
-        JButton logoutButton = new JButton(new ImageIcon("res/logout11.png"));
+        JButton logoutButton = new JButton(new ImageIcon("res/logout1.png"));
        
     
         pp3.add(CalendarButton);
