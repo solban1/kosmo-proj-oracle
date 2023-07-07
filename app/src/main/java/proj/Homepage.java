@@ -43,7 +43,7 @@ public class Homepage extends JPanel {
         pp3.setLayout(new GridLayout(2, 3));
         
         JButton todyaButton = new JButton("날씨로딩중"); // 현재 날짜
-        WeatherClient.setWeatherAsync(todyaButton,"<HTML>오늘의 날씨 <br> <HTML>");
+        WeatherClient.setWeatherAsync(  todyaButton,"<HTML>오늘의 날씨 <br>  <HTML>");
         JButton boardButton = new JButton("게시판");
         JButton logoutButton = new JButton(new ImageIcon("res/logout1.png"));
        
@@ -129,7 +129,7 @@ public class Homepage extends JPanel {
         logButton.setFont(new Font("맑은 고딕", Font.BOLD, 15));
         upb.setFont(new Font("맑은 고딕", Font.BOLD, 15));
         CalendarButton.setFont(new Font("맑은 고딕", Font.BOLD, 13));
-        todyaButton.setFont(new Font("맑은 고딕", Font.BOLD, 11));
+        todyaButton.setFont(new Font("맑은 고딕", Font.BOLD, 10));
         logoutButton.setFont(new Font("맑은 고딕", Font.BOLD, 13));
         boardButton.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 

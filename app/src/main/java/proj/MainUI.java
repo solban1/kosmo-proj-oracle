@@ -45,13 +45,13 @@ public class MainUI extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH);
 
         Date date = new Date();
-        SimpleDateFormat simpl = new SimpleDateFormat("hh:mm:ss");
+        SimpleDateFormat simpl = new SimpleDateFormat("aaa hh:mm:ss");
         String s1 = simpl.format(date);
         titleLbl = new JLabel("Main", SwingConstants.CENTER);
-        titleLbl.setFont(new Font("Malgun Gothic", Font.BOLD, 22));
+        titleLbl.setFont(new Font("Malgun Gothic", Font.BOLD, 24));
         titleLbl.setForeground(Color.WHITE);
         titleTime = new JLabel(s1, SwingConstants.CENTER);
-        titleTime.setFont(new Font("Malgun Gothic", Font.BOLD, 17));
+        titleTime.setFont(new Font("Malgun Gothic", Font.BOLD, 18));
         titleTime.setForeground(Color.WHITE);
         dummyLbl = new JLabel();
         topPanel.setLayout(new GridLayout(1, 3));
@@ -67,11 +67,11 @@ public class MainUI extends JFrame {
         upplabels.put("InfroMation", new JLabel("InfroMation", SwingConstants.NORTH));*/
 
         bottomBtns = new HashMap<>(7);
-        bottomBtns.put("근태", new JButton(new ImageIcon("res/fact.png")));
+        bottomBtns.put("근태", new JButton("근태"));
         bottomBtns.get("근태").addActionListener(attendListener);
-        bottomBtns.put("메뉴", new JButton(new ImageIcon("res/menu.png")));
+        bottomBtns.put("메뉴", new JButton("메뉴"));
         bottomBtns.get("메뉴").addActionListener(menuListener);
-        bottomBtns.put("홈", new JButton(new ImageIcon("res/home.png")));
+        bottomBtns.put("홈", new JButton("홈"));
         bottomBtns.get("홈").addActionListener(homeListener);
         bottomBtns.put("정보", new JButton(new ImageIcon("res/info.png")));
         bottomBtns.get("정보").addActionListener(infoListener);
@@ -105,7 +105,7 @@ public class MainUI extends JFrame {
             @Override
             public void run() {
                 Date date1 = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+                SimpleDateFormat sdf = new SimpleDateFormat("aaa hh:mm:ss");
                 formattedTime = sdf.format(date1);
                 titleTime.setText(formattedTime);
             }
