@@ -57,7 +57,7 @@ public class Homepage extends JPanel {
         setLayout(new BorderLayout());
         pp2.setLayout(new GridLayout(1, 0));
 
-        String htmlString = "<HTML>(" + Prop.dname + ") <br> " + Prop.ename + "님 환영합니다<HTML>";
+        String htmlString = "<HTML>(" + Prop.dname + (Prop.isMgr ? "장" : "") + ") <br> " + Prop.ename + "님 환영합니다<HTML>";
         JButton upb = new JButton(htmlString); //사원 정보 
         // upb.setText( "<HTML>(Prop.dname) <br> Prop.ename + 님 환영합니다<HTML> "); // HTML
         // 로 가능
