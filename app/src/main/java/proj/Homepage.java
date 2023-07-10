@@ -97,7 +97,7 @@ public class Homepage extends JPanel {
         boardButton.addActionListener(new HandlerBoardbutton(this));
         CalendarButton.addActionListener(new HandlerCalButton(this));
 
-        ImageIcon icon = new ImageIcon("res/clerk3.jpg");  //이미지 
+        ImageIcon icon = new ImageIcon("res/clerk.png");  //이미지 
         JPanel sP = new JPanel();
         JLabel imgLabel = new JLabel(icon);
         //JLabel centertitLabel = new JLabel(WeatherClient.setWeatherAsync);
@@ -105,6 +105,7 @@ public class Homepage extends JPanel {
 
         pp1.add(sP, BorderLayout.CENTER); //가운데 이미지 패널 
         sP.setBackground(new Color(142, 202, 210));
+        //sP.setBackground(Color.WHITE);
 
  
         pp2.add(pp3, BorderLayout.NORTH);
