@@ -45,7 +45,11 @@ public class ApprovalSubmenu extends JPanel {
         newButton = new JButton("기안", new ImageIcon("res/board_new.png"));
         newButton.addActionListener(newListener);
         listButton = new JButton("결재대기", new ImageIcon("res/board_pending.png"));
-        listButton.addActionListener(listListener);
+        if (Prop.isMgr) {
+            listButton.addActionListener(listListener);
+        } else {
+            listButton.setEnabled(false);
+        }
         myListButton = new JButton("내 결재현황", new ImageIcon("res/list.png"));
         myListButton.addActionListener(myListListener);
         List.of(newButton, listButton, myListButton).forEach(btn -> {

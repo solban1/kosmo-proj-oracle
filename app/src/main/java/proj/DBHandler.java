@@ -225,6 +225,11 @@ public class DBHandler {
         return getFirstData();
     }
 
+    public boolean getIsMgr(String email) {
+        executeQuery("select 1 from EMP where EMAIL='" + email + "' and EMPNO in (select DHEAD from DEPT)");
+        return getFirstData() != null;
+    }
+
     /**
      * 부서명 목록을 가져옴.
      * 
