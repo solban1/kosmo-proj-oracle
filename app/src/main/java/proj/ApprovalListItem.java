@@ -46,7 +46,7 @@ public class ApprovalListItem extends JPanel {
         return empno;
     }
 
-    public ApprovalListItem(String startDate, String endDate, String empno, String ename) {
+    public ApprovalListItem(String startDate, String endDate, String empno, String ename, boolean readOnly) {
         super(new BorderLayout());
         this.startDate = startDate;
         this.endDate = endDate;
@@ -55,6 +55,10 @@ public class ApprovalListItem extends JPanel {
 
         initListeners();
         initUI();
+    }
+
+    public ApprovalListItem(String startDate, String endDate, String empno, String ename) {
+        this(startDate, endDate, empno, ename, false);
     }
 
     private void initListeners() {
