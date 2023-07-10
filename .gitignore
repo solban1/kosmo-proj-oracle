@@ -6,3 +6,6 @@ build
 
 bin
 *.class
+
+# macOS
+.DS_Store
