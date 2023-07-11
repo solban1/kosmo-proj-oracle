@@ -145,6 +145,7 @@ class LoginListener implements ActionListener {
             lu.setVisible(false);
         }else{
            JOptionPane.showMessageDialog(null, "아이디, 비밀번호를 확인해주세요", "try again", JOptionPane.ERROR_MESSAGE);
+           lu.pwdField.setText("");
         }
         System.out.println(inputId);
         System.out.println(inputPwd);
