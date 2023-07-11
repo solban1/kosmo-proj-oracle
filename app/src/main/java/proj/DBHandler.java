@@ -225,6 +225,10 @@ public class DBHandler {
         return getFirstData();
     }
 
+    public String getPwdFromEmail(String email){
+        executeQuery("select PWD from EMP where EMAIL='"+ email+"'");
+        return getFirstData();
+    }
     public boolean getIsMgr(String email) {
         executeQuery("select 1 from EMP where EMAIL='" + email + "' and EMPNO in (select DHEAD from DEPT)");
         return getFirstData() != null;

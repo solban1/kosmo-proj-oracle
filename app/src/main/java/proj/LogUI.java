@@ -138,6 +138,7 @@ class LoginListener implements ActionListener {
             Prop.ename = lu.dh.getEnameFromEmail(inputId);
             Prop.empno = lu.dh.getEmpnoFromEmail(inputId);
             Prop.dname = lu.dh.getDnameFromEmail(inputId);
+            Prop.pwd = lu.dh.getPwdFromEmail(inputId);
             Prop.isMgr = lu.dh.getIsMgr(inputId);
             
             new MainUI();
