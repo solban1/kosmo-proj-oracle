@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -198,7 +198,6 @@ public class Homepage extends JPanel {
              * UIManager.put("Button.background", new Color(194, 177, 227));
              */
 
-            System.out.println("비밀번호 변경");
             int i = JOptionPane.showConfirmDialog(null, "로그아웃하시겠습니까?", "로그아웃", JOptionPane.YES_NO_OPTION,
                     JOptionPane.INFORMATION_MESSAGE);
 
