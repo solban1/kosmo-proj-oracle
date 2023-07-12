@@ -23,11 +23,10 @@ import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
 public class MainUI extends JFrame {
-    private JPanel topPanel, bottomPanel, dummyPanel, dummyPanel2;
+    private JPanel topPanel, bottomPanel;
     private JLabel titleLbl, titleTime, dummyLbl;
     private HashMap<String, JButton> bottomBtns;
-    private HashMap<String, JLabel> upplabels;
-    private ActionListener attendListener, menuListener, homeListener, infoListener, logoutListener;
+    private ActionListener attendListener, menuListener, homeListener, infoListener;
     private Component currentPanel;
     private String formattedTime;
 
@@ -58,13 +57,6 @@ public class MainUI extends JFrame {
         topPanel.add(dummyLbl);
         topPanel.add(titleLbl);
         topPanel.add(titleTime);
-
-        /*upplabels = new HashMap<>(4);
-        upplabels.put("ATTEND", new JLabel("ATTEND", SwingConstants.NORTH));
-        upplabels.get("ATTEND").addActionListener(attendListener);
-        upplabels.put("MEMU", new JLabel("MEMU", SwingConstants.NORTH));
-        upplabels.put("HOME", new JLabel("HOME", SwingConstants.NORTH));
-        upplabels.put("InfroMation", new JLabel("InfroMation", SwingConstants.NORTH));*/
 
         bottomBtns = new HashMap<>(7);
         bottomBtns.put("근태", new JButton(new ImageIcon("res/fact.png")));
@@ -98,7 +90,6 @@ public class MainUI extends JFrame {
     }
 
     public void timer() {
-        // titleTime = new JLabel();
         Timer timer = new Timer();
 
         TimerTask task = new TimerTask() {
@@ -139,13 +130,6 @@ public class MainUI extends JFrame {
             change(new InfoPanel());
             titleLbl.setText("INFO");
         };
-        logoutListener = e -> {
-            LogUI lu = new LogUI();
-            lu.init();
-            lu.setUI();
-            setVisible(false);
-        };
-
     }
 
     public void change(Component comp) {
