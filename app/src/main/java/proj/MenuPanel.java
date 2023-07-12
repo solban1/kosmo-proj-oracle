@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.border.EtchedBorder;
 
 public class MenuPanel extends JPanel {
     private JButton attendLogButton;
@@ -63,17 +62,6 @@ public class MenuPanel extends JPanel {
             JLabel pwd, newPwd, newNewPwd;
             JPasswordField pwdField, newPwdField, newNewPwdField;
             dh = new DBHandler();
-            /*String newPwd;
-            String pwd = JOptionPane.showInputDialog(null, "현재 패스워드 입력", null);
-            if (pwd != null && pwd.equals(Prop.pwd)){
-                newPwd = JOptionPane.showInputDialog(null, "변경할 패스워드를 입력해주세요", null);
-                if(newPwd!=null&&newPwd.length() != 0){
-                    dh.executeUpdate("update EMP set PWD='"+newPwd+"' where EMPNO="+Prop.empno);
-                    Prop.pwd = newPwd; 
-                }
-            }else if(pwd != null){
-                JOptionPane.showMessageDialog(null, "비밀번호를 확인해 주세요", "Message", JOptionPane.ERROR_MESSAGE);
-            }*/
 
             GridBagLayout gBagLayout = new GridBagLayout();
             panel = new JPanel();
