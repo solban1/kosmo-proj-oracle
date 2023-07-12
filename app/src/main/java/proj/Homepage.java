@@ -46,13 +46,13 @@ public class Homepage extends JPanel {
         JButton todyaButton = new JButton("날씨로딩중"); // 현재 날짜
         WeatherClient.setWeatherAsync(todyaButton,"<HTML>오늘의 날씨 <br> <HTML>");
         JButton boardButton = new JButton("게시판");
-        JButton pwdCButton = new JButton(new ImageIcon("res/pwdChange.png"));
+        JButton logoutButtonButton = new JButton(new ImageIcon("res/logout1.png"));
        
     
         pp3.add(CalendarButton);
         pp3.add(todyaButton);
         pp3.add(boardButton);
-        pp3.add(pwdCButton);
+        pp3.add(logoutButtonButton);
 
         JPanel pp2 = new JPanel();
         setLayout(new BorderLayout());
@@ -124,7 +124,7 @@ public class Homepage extends JPanel {
 
         CalendarButton.setBorderPainted(false);
         todyaButton.setBorderPainted(false);
-        pwdCButton.setBorderPainted(false);
+        logoutButtonButton.setBorderPainted(false);
         boardButton.setBorderPainted(false);
 
         workButton.setFont(new Font("맑은 고딕", Font.BOLD, 20));
@@ -132,16 +132,16 @@ public class Homepage extends JPanel {
         upb.setFont(new Font("맑은 고딕", Font.BOLD, 15));
         CalendarButton.setFont(new Font("맑은 고딕", Font.BOLD, 13));
         todyaButton.setFont(new Font("맑은 고딕", Font.BOLD, 11));
-        pwdCButton.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+        logoutButtonButton.setFont(new Font("맑은 고딕", Font.BOLD, 13));
         boardButton.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 
-        pwdCButton.addActionListener(new HhandlerButton(this)); // 로그아웃 버튼
+        logoutButtonButton.addActionListener(new HhandlerButton(this)); // 로그아웃 버튼
 
         workButton.setBackground(new Color(Prop.COLOR_MAIN));
         logButton.setBackground(new Color(Prop.COLOR_MAIN));
 
         upb.setBackground(new Color(002, 170, 178));
-        pwdCButton.setBackground(new Color(180, 239, 236));
+        logoutButtonButton.setBackground(new Color(180, 239, 236));
         todyaButton.setBackground(new Color(188, 206, 178));
         CalendarButton.setBackground(new Color(207, 255, 229));
         boardButton.setBackground(new Color(170, 240, 209));
@@ -191,12 +191,12 @@ public class Homepage extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            /*
+            /* 
              * UIManager.put("OptionPane.background", new Color(Prop.COLOR_MAIN)); //
              * UIOPTION 색상
              * UIManager.put("Panel.background", new Color(Prop.COLOR_MAIN));
              * UIManager.put("Button.background", new Color(194, 177, 227));
-             
+             */
 
             System.out.println("비밀번호 변경");
             int i = JOptionPane.showConfirmDialog(null, "로그아웃하시겠습니까?", "로그아웃", JOptionPane.YES_NO_OPTION,
@@ -207,18 +207,6 @@ public class Homepage extends JPanel {
                 lu.init();
                 lu.setUI();
                 SwingUtilities.getWindowAncestor(hp).setVisible(false);
-            }*/
-            dh = new DBHandler();
-            String pwd = JOptionPane.showInputDialog(null, "현재 패스워드 입력", null);
-            if (pwd.equals(Prop.pwd)){
-                String newPwd = JOptionPane.showInputDialog(null, "변경할 패스워드를 입력해주세요", null);
-                if(newPwd!=null&&newPwd.length() != 0){
-                    dh.executeUpdate("update EMP set PWD='"+newPwd+"' where EMPNO="+Prop.empno);  
-                } 
-                System.out.println(newPwd);
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "비밀번호를 확인해 주세요", "Message", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

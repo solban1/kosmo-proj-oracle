@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -18,13 +17,13 @@ public class MenuPanel extends JPanel {
     private JButton calButton;
     private JButton approvalButton;
     private JButton boardButton;
-    private JButton logoutButton;
+    private JButton pwdChangeButton;
 
     private ActionListener attendLogListener;
     private ActionListener calListener;
     private ActionListener approvalListener;
     private ActionListener boardListener;
-    private ActionListener logoutListener;
+    private ActionListener pwdChangeListener;
 
     public MenuPanel() {
         super(new GridLayout(5, 1));
@@ -51,13 +50,26 @@ public class MenuPanel extends JPanel {
         attendLogListener = e -> {
             ((MainUI)SwingUtilities.getAncestorOfClass(MainUI.class, this)).change(new AttendanceRecord());
         };
-        logoutListener = e -> {
-            int response = JOptionPane.showConfirmDialog(getParent(), "로그아웃하시겠습니까?", "로그아웃", JOptionPane.YES_NO_OPTION);
+        pwdChangeListener = e -> {
+            DBHandler dh;
+            /*int response = JOptionPane.showConfirmDialog(getParent(), "로그아웃하시겠습니까?", "로그아웃", JOptionPane.YES_NO_OPTION);
             if (response == JOptionPane.YES_OPTION) {
                 LogUI lu = new LogUI();
                 lu.init();
                 lu.setUI();
                 SwingUtilities.getWindowAncestor(this).setVisible(false);
+            }*/
+            dh = new DBHandler();
+            String newPwd;
+            String pwd = JOptionPane.showInputDialog(null, "현재 패스워드 입력", null);
+            if (pwd != null && pwd.equals(Prop.pwd)){
+                newPwd = JOptionPane.showInputDialog(null, "변경할 패스워드를 입력해주세요", null);
+                if(newPwd!=null&&newPwd.length() != 0){
+                    dh.executeUpdate("update EMP set PWD='"+newPwd+"' where EMPNO="+Prop.empno);
+                    Prop.pwd = newPwd; 
+                }
+            }else if(pwd != null){
+                JOptionPane.showMessageDialog(null, "비밀번호를 확인해 주세요", "Message", JOptionPane.ERROR_MESSAGE);
             }
         };
     }
@@ -76,10 +88,10 @@ public class MenuPanel extends JPanel {
         boardButton = new JButton("게시판", new ImageIcon("res/list.png"));
         boardButton.addActionListener(boardListener);
 
-        logoutButton = new JButton("로그아웃", new ImageIcon("res/logout.png"));
-        logoutButton.addActionListener(logoutListener);
+        pwdChangeButton = new JButton("비밀번호", new ImageIcon("res/password1.png"));
+        pwdChangeButton.addActionListener(pwdChangeListener);
 
-        List.of(attendLogButton, calButton, approvalButton, boardButton, logoutButton).forEach(btn -> {
+        List.of(attendLogButton, calButton, approvalButton, boardButton, pwdChangeButton).forEach(btn -> {
             btn.setBackground(new Color(Prop.COLOR_MAIN).brighter());
             btn.setOpaque(true);
             btn.setFont(new Font("Malgun Gothic", Font.BOLD, 16));
