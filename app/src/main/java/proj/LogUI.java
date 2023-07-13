@@ -126,6 +126,7 @@ class LoginListener implements ActionListener {
     LoginListener(LogUI lu) {
         this.lu = lu;
     }
+    @Override
     public void actionPerformed(ActionEvent e) {
         String inputId = lu.idField.getText();
         String inputPwd = new String(lu.pwdField.getPassword());
